@@ -4,10 +4,7 @@
     <!-- Uncomment this to display the close button of the panel
 <button class="kt-header-menu-wrapper-close" id="kt_header_menu_mobile_close_btn"><i class="la la-close"></i></button>
 -->
-    <div class="kt-header-menu-wrapper" id="kt_header_menu_wrapper">
-        <div id="kt_header_menu" class="kt-header-menu kt-header-menu-mobile  kt-header-menu--layout-default ">
-        </div>
-    </div>
+    <div class="kt-header-menu-wrapper" id="kt_header_menu_wrapper"></div>
 
     <!-- end:: Header Menu -->
 
@@ -30,7 +27,7 @@
             <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-xl">
 
                 <!--begin: Head -->
-                <div class="kt-user-card kt-user-card--skin-dark kt-notification-item-padding-x" style="background-image: url(../assets/media/misc/bg-1.jpg)">
+                <div class="kt-user-card kt-user-card--skin-dark kt-notification-item-padding-x" style="background-image:url({{url('public/assets/media/misc/bg-1.jpg')}})">
                     <div class="kt-user-card__avatar">
                         <img class="kt-hidden" alt="Pic" src="{{ asset('assets/media/users/300_25.jpg') }}" />
 

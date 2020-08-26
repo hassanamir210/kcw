@@ -1,7 +1,7 @@
 $(document).ready( function () {
 
     $('.table-admin_tables').DataTable( {
-        paging: false
+        paging: true
     } );
 
     $('#close-sidebar').on('click', function() {

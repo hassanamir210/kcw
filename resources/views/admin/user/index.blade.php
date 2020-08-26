@@ -32,6 +32,7 @@
                             <th>@lang('Email')</th>
                             <th>@lang('Active')</th>
                             <th>@lang('Role')</th>
+                            <th>@lang('Total Deposit')</th>
                             <th>@lang('Action')</th>
                         </tr>
                     </thead>
@@ -42,6 +43,7 @@
                             <td>{{ $user->email }}</td>
                             <td>@include('admin.user.includes.active', ['user' => $user])</td>
                             <td>{!! $user->roles_label !!}</td>
+                            <td>{{ $user->isCustomer() ? $user->totalDepositedAmount() : ''}}</td>
                             <td>@include('admin.user.includes.actions', ['user' => $user])</td>
                         </tr>
                         @endforeach

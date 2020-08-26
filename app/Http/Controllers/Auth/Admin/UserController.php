@@ -52,7 +52,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.user.index')->withUsers($this->user->paginate(config('access.default_size')));
+        return view('admin.user.index')->withUsers($this->user->all());
     }
 
     /**

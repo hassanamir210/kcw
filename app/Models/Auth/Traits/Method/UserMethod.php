@@ -191,6 +191,20 @@ trait UserMethod
      * 
      * @return int
      */
+    public function totalDepositedAmount() {
+
+        return $this->paymentHistory->where('type', PaymentRequest::DEPOSIT)
+            ->where('status', PaymentRequest::APPROVED)
+            ->where('user_id', $this->id)
+            ->where('amount', '!==', '')
+            ->sum('amount');
+    }
+
+    /**
+     * Reset two factor authentication code
+     * 
+     * @return int
+     */
     public function totalWithdraw() {
 
         return $this->paymentHistory->where('type', PaymentRequest::WITHDRAW)->where('status',PaymentRequest::APPROVED)->sum('amount');
