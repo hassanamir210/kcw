@@ -29,6 +29,7 @@
                     <thead>
                         <tr>
                             <th>@lang('Name')</th>
+                            <th>@lang('User Name')</th>
                             <th>@lang('Email')</th>
                             <th>@lang('Active')</th>
                             <th>@lang('Role')</th>
@@ -40,6 +41,7 @@
                         @foreach($users as $user)
                         <tr>
                             <td>{{ $user->name }}</td>
+                            <td>{{ $user->user_name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>@include('admin.user.includes.active', ['user' => $user])</td>
                             <td>{!! $user->roles_label !!}</td>
