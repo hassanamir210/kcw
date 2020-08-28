@@ -32,20 +32,25 @@
 }
 
 .transfer-payment-btn{
-    background: #000b65;
-    border: 1px solid #0014ff;
+    background: #000000;
+    /*background: #000b65;*/
+    /*border: 1px solid #0014ff;*/
+    border: 1px solid #000000;
     border-radius: 10px;
     padding: 10px 25px;
     color: #fff;
     font-size: 18px;
-}
+    }
 
 .daily-background{
-    background: linear-gradient(#ffe59a,#20c1c3);
+/*background: linear-gradient(#ffe59a,#20c1c3);*/
+background: linear-gradient(#151515,#a9aeaf);
 }
 
 .total-amount-boxes-background{
-    background: linear-gradient(#eeaeca,#94bbe9);
+/*background: linear-gradient(#eeaeca,#94bbe9);*/
+background: linear-gradient(#151515,#a9aeaf);
+
 }
 
 /* Horrizontal text continues scroll css (dashboard.blade.php) */

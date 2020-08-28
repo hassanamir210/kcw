@@ -1,7 +1,8 @@
 $(document).ready( function () {
 
-    $('.table-admin_tables').DataTable( {
-        paging: true
+    $('.table').DataTable( {
+        paging: true,
+        scrollX:true
     } );
 
     $('#close-sidebar').on('click', function() {

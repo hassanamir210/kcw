@@ -10,7 +10,7 @@
 		<div class="row mt-5">
 			<div class="col-sm-12 col-md-12 col-xl-12">
 				<!--begin::Stats Widget 13-->
-				<a href="javascript::void(0)" class="card card-custom bg-danger bg-hover-state-danger card-stretch gutter-b">
+				<a href="javascript::void(0)" class="card card-custom bg-danger bg-hover-state-danger card-stretch gutter-b daily-background">
 					<!--begin::Body-->
 					<div class="card-body">
 						<div class="text-inverse-white font-weight-bolder font-25 font-size-h5 mb-2 mt-5 text-center">Current Balance</div>

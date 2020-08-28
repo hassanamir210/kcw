@@ -50,9 +50,6 @@
                     </tbody>
                 </table>
             </div>
-            <div class="pagination" style="margin-left:auto">
-                {{ $users->links() }}
-            </div>
         </div>
     </div>
 </div>
