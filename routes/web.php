@@ -66,6 +66,9 @@ Route::group(['middleware' => [config('access.users.super_admin'),config('access
 
     Route::get('payment/withdraw/requests', 'PaymentRequestController@withdrawRequests')->name('payment.withdraw.requests');
     Route::get('payment/withdraw/request/accept', 'PaymentRequestController@withdrawRequestAction')->name('payment.withdraw.request.action');
+
+    Route::get('payment/withdraw/request/reject/form', 'PaymentRequestController@withdrawRequestRejectForm')->name('payment.withdraw.request.reject.form');
+    Route::post('payment/withdraw/request/reject', 'PaymentRequestController@withdrawRequestReject')->name('payment.withdraw.request.reject');
 });
 
 
@@ -84,6 +87,8 @@ Route::group(['middleware' => [config('access.users.customer_role'),config('acce
     Route::get('payment/deposit', 'PaymentManagementController@deposit')->name('payment.deposit');
 
     Route::get('payment/roi/transfer', 'PaymentManagementController@transferRoiPayment')->name('payment.roi.transfer');
+
+    Route::get('payment/reinvest', 'PaymentManagementController@reinvestCurrentBalance')->name('payment.reinvest');
 
     Route::get('payment/team/bonus/transfer', 'PaymentManagementController@transferTeamBonusPayment')->name('payment.team.bonus.transfer');
 

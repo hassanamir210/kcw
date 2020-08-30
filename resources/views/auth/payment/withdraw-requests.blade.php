@@ -36,7 +36,7 @@
                             <td>
                                 <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                                     <a href="{{ route('admin.payment.withdraw.request.action', ['flag'=>encrypt(1),'id'=>encrypt($request->id),'user_id'=>encrypt($request->user->id)]) }}" class="btn btn-success btn-sm" data-toggle="tooltip" title="View">Accept</a>
-                                    <a href="{{ route('admin.payment.withdraw.request.action', ['flag'=>encrypt(2),'id'=>encrypt($request->id),'user_id'=>encrypt($request->user->id)]) }}" class="btn btn-danger btn-sm" data-toggle="tooltip" title="View">Reject</a>
+                                    <a href="{{ route('admin.payment.withdraw.request.reject.form', ['flag'=>encrypt(2),'id'=>encrypt($request->id),'user_id'=>encrypt($request->user->id)]) }}" class="btn btn-danger btn-sm" data-toggle="tooltip" title="View">Reject</a>
                                 </div>
                             </td>
                         </tr>

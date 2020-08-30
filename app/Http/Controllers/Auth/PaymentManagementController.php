@@ -13,6 +13,7 @@ use App\Models\TeamBonus;
 use App\Http\Requests\Auth\WithdrawPaymentRequest;
 use App\Http\Requests\Auth\DepositPaymentRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\WithdrawRequest;
 
 class PaymentManagementController extends Controller
 {
@@ -54,6 +55,8 @@ class PaymentManagementController extends Controller
             $paymentRequest = $this->paymentRequest->withdraw($request->all());
 
             auth()->user()->resetWithdrawTwoFactorCode();
+
+            auth()->user()->notify(new WithdrawRequest());
 
             return redirect()->route('user.home')->withFlashSuccess('Your request to withdraw amount sent successfully');
         }
@@ -193,6 +196,37 @@ class PaymentManagementController extends Controller
 
 
         return redirect()->route('user.home')->withFlashSuccess(__('The ROI payment was transferred successfully.'));
+    }
+
+    /**
+     * @param  void
+     *
+     * @return mixed
+     * @throws \App\Exceptions\GeneralException
+     * @throws \Throwable
+     */
+    public function reinvestCurrentBalance() {
+        
+        $payment = Payment::where('user_id',Auth::user()->id)->first();
+        $amount  = $payment->current_balance;
+
+        if ($amount <= 0) {
+            return redirect()->back()->withFlashDanger(__('Current balance should be greater 0.'));
+        }
+        
+        $payment->current_balance = 0;
+        $payment->save();
+
+        $paymentRequest = PaymentRequest::create([
+                                        'user_id' => Auth::user()->id,
+                                        'amount' => $amount,
+                                        'type' => PaymentRequest::DEPOSIT,
+                                        'status' => PaymentRequest::APPROVED,
+                                        'date' => date('Y-m-d'),
+                                    ]);
+
+
+        return redirect()->route('user.home')->withFlashSuccess(__('Your amount is reinvested successfully.'));
     }
 
     /**

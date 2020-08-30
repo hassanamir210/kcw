@@ -9,6 +9,10 @@ use App\Models\PaymentRequest;
 use App\Http\Requests\Auth\WithdrawPaymentRequest;
 use App\Http\Requests\Auth\DepositPaymentRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\WithdrawApproved;
+use App\Notifications\WithdrawRejected;
+use App\User;
+
 
 class PaymentRequestController extends Controller
 {
@@ -45,6 +49,9 @@ class PaymentRequestController extends Controller
             $model->status = PaymentRequest::APPROVED;
             $model->save();
 
+            $user = User::where('id',decrypt($request->user_id))->first();
+            $user->notify(new WithdrawApproved());
+
             return redirect()->back()->withFlashInfo(__('Request approved suucessfully'));
         }
 
@@ -59,5 +66,43 @@ class PaymentRequestController extends Controller
 
             return redirect()->back()->withFlashInfo(__('Request rejected suucessfully'));
         }
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function withdrawRequestRejectForm(Request $request) {
+        $flag = decrypt($request->flag);
+
+        if ($flag === PaymentRequest::REJECTED) {
+            $user_id = $request->user_id;
+            $flag = $request->flag;
+            $id = $request->id;
+
+            return view('auth.payment.reject-form',compact('user_id','flag','id'));
+
+        }
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function withdrawRequestReject(Request $request) {
+
+        // return $request;
+
+        $model = $this->paymentRequest->find(decrypt($request->id));
+
+        $payment = Payment::where('user_id', decrypt($request->user_id))->first();
+        $payment->current_balance += $model->amount;
+        $payment->save();
+
+        $user = User::where('id',decrypt($request->user_id))->first();
+        $user->notify(new WithdrawRejected($request->reason));
+
+        $model->status = PaymentRequest::REJECTED;
+        $model->save();
+
+        return redirect('admin/payment/withdraw/requests')->withFlashInfo(__('Request rejected suucessfully'));
     }
 }

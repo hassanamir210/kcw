@@ -15,6 +15,7 @@
 					<div class="card-body">
 						<div class="text-inverse-white font-weight-bolder font-25 font-size-h5 mb-2 mt-5 text-center">Current Balance</div>
 						<div class="font-weight-bold text-inverse-white text-center font-23">${{ auth()->user()->payment ? auth()->user()->payment->current_balance : '0' }}</div>
+						<button onclick="window.location.href='{{ url('user/payment/reinvest') }}'" class="transfer-payment-btn pull-right" >Reinvest</button>
 					</div>
 					<!--end::Body-->
 				</a>
