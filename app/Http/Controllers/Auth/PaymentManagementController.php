@@ -14,6 +14,8 @@ use App\Http\Requests\Auth\WithdrawPaymentRequest;
 use App\Http\Requests\Auth\DepositPaymentRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\WithdrawRequest;
+use App\Notifications\DepositSuccess;
+use App\User;
 
 class PaymentManagementController extends Controller
 {
@@ -77,10 +79,15 @@ class PaymentManagementController extends Controller
            $invoice_id = $_GET['invoice_id'];
            $model = PaymentRequest::find($invoice_id);
          if($model){
-              $model->status = PaymentRequest::APPROVED;
-        $model->save();
-            $user = Auth::user();
-        $user->payment_status = 1;
+            $model->status = PaymentRequest::APPROVED;
+            $model->save();
+
+            // $user = Auth::user();
+            $user = User::where('id',$model->user_id)->first();
+            $user->payment_status = 1;
+            $user->save();
+
+            $user->notify(new DepositSuccess());
          }
          else{
              return "bhag ja teri pan di siri";
