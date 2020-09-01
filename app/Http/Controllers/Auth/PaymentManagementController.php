@@ -142,7 +142,9 @@ class PaymentManagementController extends Controller
         
         event(new VerifyPaymentWithdraw($request));
 
-        return redirect()->back()->withFlashInfo(__('Check your email to verify payment withdraw request.'));
+        return redirect('user/verify/payment/withdraw?amount='.encrypt($request->withdraw_amount))
+                    ->withFlashInfo(__('Check your email to verify payment withdraw request.'));
+        //back()->withFlashInfo(__('Check your email to verify payment withdraw request.'));
     }
 
     /**

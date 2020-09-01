@@ -182,6 +182,11 @@
 				<input type="text" class="form-control mb-5" readonly value="{{ url('/register') . '?ref=' . encrypt(auth()->user()->id) }}">
 			</div>
 		</div>
+		<div class="row pull-right">
+			<div class="container">
+			<button class="btn btn-danger" data-toggle="modal" data-target="#myModal">Refund Amount</button>
+			</div>
+		</div>
 	@endcannot
 	@if(auth()->user()->id==1)
 	<div class="row mt-5">
@@ -335,4 +340,24 @@
 		</div>
 	</div>
 	@endif
+
+	<div id="myModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      {{-- <div class="modal-header">
+	        <button type="button" class="pull-right close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Modal Header</h4>
+	      </div> --}}
+	      <div class="modal-body">
+	        <p>You can not refund your amount. You have not completed your 18 months.</p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+
+	  </div>
+	</div>
 @endsection

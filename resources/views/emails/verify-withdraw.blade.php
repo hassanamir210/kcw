@@ -4,9 +4,9 @@
 
 Your payment withdraw verification code is {{ auth()->user()->withdraw_two_factor_code }}
 
-@component('mail::button', ['url' => route('user.verify.payment.index', ['amount' => encrypt($amount)])])
+{{-- @component('mail::button', ['url' => route('user.verify.payment.index', ['amount' => encrypt($amount)])])
 Verify Here
-@endcomponent
+@endcomponent --}}
 
 If you have not tried to withdraw, ignore this message.
 
