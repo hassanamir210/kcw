@@ -137,6 +137,11 @@
                 </li>
                 @endcan
             </ul>
+            @if(auth()->user()->id!=1)
+                <div class="container">
+                    <button style="width:100%" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Refund Amount</button>
+                </div>
+            @endif
         </div>
     </div>
     <!-- end:: Aside Menu -->

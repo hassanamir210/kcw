@@ -182,11 +182,11 @@
 				<input type="text" class="form-control mb-5" readonly value="{{ url('/register') . '?ref=' . encrypt(auth()->user()->id) }}">
 			</div>
 		</div>
-		<div class="row pull-right">
+		{{-- <div class="row pull-right">
 			<div class="container">
 			<button class="btn btn-danger" data-toggle="modal" data-target="#myModal">Refund Amount</button>
 			</div>
-		</div>
+		</div> --}}
 	@endcannot
 	@if(auth()->user()->id==1)
 	<div class="row mt-5">
