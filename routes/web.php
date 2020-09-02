@@ -103,6 +103,7 @@ Route::group(['middleware' => [config('access.users.customer_role'),config('acce
     Route::post('payment/deposit/amount', 'PaymentManagementController@depositAmount')->name('payment.deposit.save');
 
 
+    Route::get('target', [UserController::class, 'target'])->name('target');
 
     Route::get('invite/refferal/index', [UserController::class, 'inviteRefferalUser'])->name('invite.refferal.index');
     Route::post('invite/refferal', [UserController::class, 'invite'])->name('invite.refferal');

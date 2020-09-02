@@ -194,6 +194,23 @@ class UserController extends Controller
         return redirect()->route('admin.user.index')->withFlashSuccess(__('The payment was deposited successfully.'));
     }
 
+    
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function target() {
+
+        $users = User::where('original_reffered_by',Auth::User()->id)->get();
+
+        $sum = 0;
+
+        foreach ($users as $user) {
+            $sum += $user->totalDepositedAmount();
+        }
+
+        return view('auth.target',compact('users','sum'));
+    }
+
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
