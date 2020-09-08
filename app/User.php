@@ -36,6 +36,10 @@ class User extends Authenticatable
     public const LEVEL_FOUR = 4;
     public const LEVEL_FIVE = 5;
     public const LEVEL_SIX = 6;
+    public const LEVEL_SEVEN = 7;
+    public const LEVEL_EIGHT = 8;
+    public const LEVEL_NINE = 9;
+    public const LEVEL_TEN = 10;
 
     /**
      * The attributes that are mass assignable.

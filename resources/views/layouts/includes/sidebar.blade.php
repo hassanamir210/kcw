@@ -134,6 +134,22 @@
                         <ul class="kt-menu__subnav">
                             <li class="kt-menu__item" aria-haspopup="true"><a href="{{ route('user.user-by-levels', 6) }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text font-17">Level 6</span><span class="kt-menu__link-badge"></a></li>
                         </ul>
+                        {{-- Level 7 users --}}
+                        <ul class="kt-menu__subnav">
+                            <li class="kt-menu__item" aria-haspopup="true"><a href="{{ route('user.user-by-levels', 7) }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text font-17">Level 7</span><span class="kt-menu__link-badge"></a></li>
+                        </ul>
+                        {{-- Level 8 users --}}
+                        <ul class="kt-menu__subnav">
+                            <li class="kt-menu__item" aria-haspopup="true"><a href="{{ route('user.user-by-levels', 8) }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text font-17">Level 8</span><span class="kt-menu__link-badge"></a></li>
+                        </ul>
+                        {{-- Level 9 users --}}
+                        <ul class="kt-menu__subnav">
+                            <li class="kt-menu__item" aria-haspopup="true"><a href="{{ route('user.user-by-levels', 9) }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text font-17">Level 9</span><span class="kt-menu__link-badge"></a></li>
+                        </ul>
+                        {{-- Level 10 users --}}
+                        <ul class="kt-menu__subnav">
+                            <li class="kt-menu__item" aria-haspopup="true"><a href="{{ route('user.user-by-levels', 10) }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text font-17">Level 10</span><span class="kt-menu__link-badge"></a></li>
+                        </ul>
                     </div>
                 </li>
                 @endcan

@@ -42,6 +42,18 @@ class CronController extends Controller
 
                 $levelSixUsers = $user->getUsersByRefferalLevel(User::LEVEL_SIX);
                 $sum += $user->calculateTeamBonus($levelSixUsers,0.25);
+
+                $levelSevenUsers = $user->getUsersByRefferalLevel(User::LEVEL_SEVEN);
+                $sum += $user->calculateTeamBonus($levelSevenUsers,0.25);
+
+                $levelEightUsers = $user->getUsersByRefferalLevel(User::LEVEL_EIGHT);
+                $sum += $user->calculateTeamBonus($levelEightUsers,0.25);
+
+                $levelNineUsers = $user->getUsersByRefferalLevel(User::LEVEL_NINE);
+                $sum += $user->calculateTeamBonus($levelNineUsers,0.25);
+
+                $levelTenUsers = $user->getUsersByRefferalLevel(User::LEVEL_TEN);
+                $sum += $user->calculateTeamBonus($levelTenUsers,0.25);
                 
                 // $user->payment->current_balance += $sum;
                 // $user->payment->save();

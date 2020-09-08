@@ -10,7 +10,9 @@
         </div>
         <div class="kt-login__signin">
             <div class="kt-login__head">
-                <h3 class="kt-login__title" style="color:#fff">Login To Dashboard</h3>
+                <h2 class="kt-login__title" style="color:#fff"><i>You are looking gorgeous today!</i></h2>
+                <br>
+                <h3 class="kt-login__title" style="color:#fff"><i>Login To Dashboard</i></h3>
             </div>
             {{ Form::open(array('route' => 'login','class' => 'kt-form')) }}
                 <div class="input-group" >

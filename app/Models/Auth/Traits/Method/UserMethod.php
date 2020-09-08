@@ -301,7 +301,55 @@ trait UserMethod
             case self::LEVEL_SIX:
                 return '0.25%';
             break;
+
+            case self::LEVEL_SEVEN:
+                return '0.25%';
+            break;
+
+            case self::LEVEL_EIGHT:
+                return '0.25%';
+            break;
+
+            case self::LEVEL_NINE:
+                return '0.25%';
+            break;
+
+            case self::LEVEL_TEN:
+                return '0.25%';
+            break;
         }
+    }
+
+    /**
+     * Reset two factor authentication code
+     * 
+     * @return App\User;
+     */
+    public function getUsersByRefferalLevelFirstTen($level) {
+
+        $resultArr = [];
+        $idsArr = [];
+
+        for($i=1 ; $i<=$level ; $i++)
+        {
+            if($level==1)
+                $idsArr[] = $this->id;
+            else
+                $idsArr = $resultArr;
+
+            $resultArr = [];
+
+            for($j=0 ; $j<count($idsArr) ; $j++)
+            {
+                $tempArr    = self::where('referred_by', $idsArr)
+                                    ->limit(10)
+                                    ->pluck('id')
+                                    ->toArray();
+                $resultArr  = array_merge($resultArr,$tempArr);
+            }
+        }
+        return self::whereIn('id', $resultArr)
+                    ->get();
     }
 
     /**
@@ -354,6 +402,61 @@ trait UserMethod
 
             case self::LEVEL_SIX:
                 $userIds = self::where('referred_by', $this->id)->pluck('id');
+                $userIds = self::whereIn('referred_by', $userIds)->pluck('id');
+                $userIds = self::whereIn('referred_by', $userIds)->pluck('id');
+                $userIds = self::whereIn('referred_by', $userIds)->pluck('id');
+                $userIds = self::whereIn('referred_by', $userIds)->pluck('id');
+                return self::whereIn('referred_by', $userIds)
+                    // ->where('payment_status', Payment::PAID)
+                    ->get();
+            break;
+
+            case self::LEVEL_SEVEN:
+                $userIds = self::where('referred_by', $this->id)->pluck('id');
+                $userIds = self::whereIn('referred_by', $userIds)->pluck('id');
+                $userIds = self::whereIn('referred_by', $userIds)->pluck('id');
+                $userIds = self::whereIn('referred_by', $userIds)->pluck('id');
+                $userIds = self::whereIn('referred_by', $userIds)->pluck('id');
+                $userIds = self::whereIn('referred_by', $userIds)->pluck('id');
+                return self::whereIn('referred_by', $userIds)
+                    // ->where('payment_status', Payment::PAID)
+                    ->get();
+            break;
+
+            case self::LEVEL_EIGHT:
+                $userIds = self::where('referred_by', $this->id)->pluck('id');
+                $userIds = self::whereIn('referred_by', $userIds)->pluck('id');
+                $userIds = self::whereIn('referred_by', $userIds)->pluck('id');
+                $userIds = self::whereIn('referred_by', $userIds)->pluck('id');
+                $userIds = self::whereIn('referred_by', $userIds)->pluck('id');
+                $userIds = self::whereIn('referred_by', $userIds)->pluck('id');
+                $userIds = self::whereIn('referred_by', $userIds)->pluck('id');
+                return self::whereIn('referred_by', $userIds)
+                    // ->where('payment_status', Payment::PAID)
+                    ->get();
+            break;
+
+            case self::LEVEL_NINE:
+                $userIds = self::where('referred_by', $this->id)->pluck('id');
+                $userIds = self::whereIn('referred_by', $userIds)->pluck('id');
+                $userIds = self::whereIn('referred_by', $userIds)->pluck('id');
+                $userIds = self::whereIn('referred_by', $userIds)->pluck('id');
+                $userIds = self::whereIn('referred_by', $userIds)->pluck('id');
+                $userIds = self::whereIn('referred_by', $userIds)->pluck('id');
+                $userIds = self::whereIn('referred_by', $userIds)->pluck('id');
+                $userIds = self::whereIn('referred_by', $userIds)->pluck('id');
+                return self::whereIn('referred_by', $userIds)
+                    // ->where('payment_status', Payment::PAID)
+                    ->get();
+            break;
+
+
+            case self::LEVEL_TEN:
+                $userIds = self::where('referred_by', $this->id)->pluck('id');
+                $userIds = self::whereIn('referred_by', $userIds)->pluck('id');
+                $userIds = self::whereIn('referred_by', $userIds)->pluck('id');
+                $userIds = self::whereIn('referred_by', $userIds)->pluck('id');
+                $userIds = self::whereIn('referred_by', $userIds)->pluck('id');
                 $userIds = self::whereIn('referred_by', $userIds)->pluck('id');
                 $userIds = self::whereIn('referred_by', $userIds)->pluck('id');
                 $userIds = self::whereIn('referred_by', $userIds)->pluck('id');

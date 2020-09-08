@@ -97,43 +97,58 @@ class RegisterController extends Controller
     {
         DB::beginTransaction();
 
-        $index = 0;     
-        $level = 0;
-        $power = 0;
-        $counter = 1;
         $userIds = [$this->refferedByUser()];
-        $found = false;
-        while ($found == false) {
 
-            $users = User::where('referred_by', $userIds[$index]) ->get();
-            $count = $users->count();
-
-            if ($count < 6) {
-                $found = true;
-                $refferdById = $userIds[$index]; 
-
-                $user =  $this->registerUser($data,$refferdById);
-                if ($user) {
-                    $user->notify(new WelcomeMail());
-                    return $user;
-                }
-            } else {
-                $ids = User::where('referred_by', $userIds[$index])->where('payment_status', Payment::PAID)->pluck('id')->toArray();
-                $userIds = array_merge($userIds, $ids);
-                $index++;
-            }
-            $counter++; 
-            if ($counter >  pow(6,$power)) {
-                $power++;
-                $level++;
-                $counter = 1;
-            }
-            if ($level == 6) {
-                $found = true;
-                throw new GeneralException(__('Refferals limit reached against your refferal. Please contact your refferal.'));
-            }
+        $user =  $this->registerUser($data,$this->refferedByUser());
+        if ($user) {
+            $user->notify(new WelcomeMail());
+            return $user;
         }
+        
+        throw new GeneralException(__('Refferals limit reached against your refferal. Please contact your refferal.'));
     }
+
+    // protected function create(array $data)
+    // {
+    //     DB::beginTransaction();
+
+    //     $index = 0;     
+    //     $level = 0;
+    //     $power = 0;
+    //     $counter = 1;
+    //     $userIds = [$this->refferedByUser()];
+    //     $found = false;
+    //     while ($found == false) {
+
+    //         $users = User::where('referred_by', $userIds[$index]) ->get();
+    //         $count = $users->count();
+
+    //         if ($count < 6) {
+    //             $found = true;
+    //             $refferdById = $userIds[$index]; 
+
+    //             $user =  $this->registerUser($data,$refferdById);
+    //             if ($user) {
+    //                 $user->notify(new WelcomeMail());
+    //                 return $user;
+    //             }
+    //         } else {
+    //             $ids = User::where('referred_by', $userIds[$index])->where('payment_status', Payment::PAID)->pluck('id')->toArray();
+    //             $userIds = array_merge($userIds, $ids);
+    //             $index++;
+    //         }
+    //         $counter++; 
+    //         if ($counter >  pow(6,$power)) {
+    //             $power++;
+    //             $level++;
+    //             $counter = 1;
+    //         }
+    //         if ($level == 6) {
+    //             $found = true;
+    //             throw new GeneralException(__('Refferals limit reached against your refferal. Please contact your refferal.'));
+    //         }
+    //     }
+    // }
 
     private function registerUser(array $data,$refferdById) {
         try {
