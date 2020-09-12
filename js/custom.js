@@ -1,6 +1,6 @@
 $(document).ready( function () {
 
-    $('.table').DataTable( {
+    $('.table-striped-').DataTable( {
         paging: true,
         scrollX:true
     } );

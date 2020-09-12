@@ -15,7 +15,12 @@
 					<div class="card-body">
 						<div class="text-inverse-white font-weight-bolder font-25 font-size-h5 mb-2 mt-5 text-center">Current Balance</div>
 						<div class="font-weight-bold text-inverse-white text-center font-23">${{ auth()->user()->payment ? auth()->user()->payment->current_balance : '0' }}</div>
-						<button onclick="window.location.href='{{ url('user/payment/reinvest') }}'" class="transfer-payment-btn pull-right" >Reinvest</button>
+
+						@if( auth()->user()->payment 
+							&&
+							auth()->user()->payment->current_balance>0)
+							<button class="transfer-payment-btn pull-right" data-toggle="modal" data-target="#reinvest">Reinvest</button>
+						@endif
 					</div>
 					<!--end::Body-->
 				</a>
@@ -340,6 +345,27 @@
 		</div>
 	</div>
 	@endif
+
+	<div id="reinvest" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      {{-- <div class="modal-header">
+	        <button type="button" class="pull-right close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Modal Header</h4>
+	      </div> --}}
+	      <div class="modal-body">
+	        <p>Are you sure you want to reinvest?</p>
+	      </div>
+	      <div class="modal-footer">
+	      	<button onclick="window.location.href='{{ url('user/payment/reinvest') }}'" class="btn btn-primary" >Yes</button>
+	        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+	      </div>
+	    </div>
+
+	  </div>
+	</div>
 
 	<div id="myModal" class="modal fade" role="dialog">
 	  <div class="modal-dialog">
