@@ -2,7 +2,8 @@ $(document).ready( function () {
 
     $('.table-striped-').DataTable( {
         paging: true,
-        scrollX:true
+        scrollX:true,
+        order: [] 
     } );
 
     $('#close-sidebar').on('click', function() {

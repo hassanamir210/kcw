@@ -88,7 +88,10 @@ class UserController extends Controller
      */ 
     public function show(User $user)
     {
-        return view('admin.user.show')
+        $paymentRequests = PaymentRequest::where('user_id',$user->id)
+                                        ->orderBy('date','desc')
+                                        ->get();
+        return view('admin.user.show',compact('paymentRequests'))
             ->withUser($user);
     }
 

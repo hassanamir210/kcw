@@ -98,8 +98,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($user->paymentHistory
-                                            ->where('type',"withdraw") as $request)
+                                @foreach($paymentRequests->where('type',"withdraw") as $request)
                                 <tr>
                                     <td>{{ $request->amount }}</td>
                                     <td>{{ $request->date }}</td>
@@ -133,7 +132,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($user->paymentHistory
+                                @foreach($paymentRequests
                                             ->where('type',"deposit")
                                             ->where('status',1) as $request)
                                 <tr>

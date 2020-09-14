@@ -18,6 +18,8 @@
                     <thead>
                         <tr>
                             <th>@lang('Name')</th>
+                            <th>@lang('Username')</th>
+                            <th>@lang('Email')</th>
                             <th>@lang('Amount')</th>
                             <th>@lang('Address')</th>
                             <th>@lang('Date')</th>
@@ -29,6 +31,8 @@
                         @foreach($withdrawRequests as $request)
                         <tr>
                             <td>{{ $request->user->name }}</td>
+                            <td>{{ $request->user->user_name }}</td>
+                            <td>{{ $request->user->email }}</td>
                             <td>${{ $request->amount }}</td>
                             <td>${{ $request->user->block_chain_address }}</td>
                             <td>{{ $request->date }}</td>

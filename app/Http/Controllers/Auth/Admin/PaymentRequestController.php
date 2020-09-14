@@ -32,7 +32,7 @@ class PaymentRequestController extends Controller
     public function withdrawRequests() {
         return view('auth.payment.withdraw-requests')
             ->withWithdrawRequests($this->paymentRequest->where('status', PaymentRequest::PENDING)
-                ->where('type', PaymentRequest::WITHDRAW)->get());
+                ->where('type', PaymentRequest::WITHDRAW)->orderBy('id','desc')->get());
     }
 
     /**
