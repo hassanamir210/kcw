@@ -87,7 +87,7 @@ class PaymentManagementController extends Controller
             $user->payment_status = 1;
             $user->save();
 
-            $user->notify(new DepositSuccess());
+            // $user->notify(new DepositSuccess());
          }
          else{
              return "bhag ja teri pan di siri";
