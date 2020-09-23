@@ -88,7 +88,7 @@ Route::group(['middleware' => [config('access.users.customer_role'),config('acce
 
     Route::get('payment/roi/transfer', 'PaymentManagementController@transferRoiPayment')->name('payment.roi.transfer');
 
-    Route::get('payment/reinvest', 'PaymentManagementController@reinvestCurrentBalance')->name('payment.reinvest');
+    Route::post('payment/reinvest', 'PaymentManagementController@reinvestCurrentBalance')->name('payment.reinvest');
 
     Route::get('payment/team/bonus/transfer', 'PaymentManagementController@transferTeamBonusPayment')->name('payment.team.bonus.transfer');
 

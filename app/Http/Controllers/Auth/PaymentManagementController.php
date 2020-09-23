@@ -214,16 +214,22 @@ class PaymentManagementController extends Controller
      * @throws \App\Exceptions\GeneralException
      * @throws \Throwable
      */
-    public function reinvestCurrentBalance() {
+    public function reinvestCurrentBalance(Request $request) {
         
+
         $payment = Payment::where('user_id',Auth::user()->id)->first();
-        $amount  = $payment->current_balance;
+        $amount  = $request->amount;
+
+        if($amount<1)
+            return redirect()->route('user.home')->withFlashDanger(__('Amount must be greater or equal to 100'));
+        if($amount>$payment->current_balance)
+            return redirect()->route('user.home')->withFlashDanger(__('Amount must be less then or equal to you current balance.'));
 
         if ($amount <= 0) {
             return redirect()->back()->withFlashDanger(__('Current balance should be greater 0.'));
         }
         
-        $payment->current_balance = 0;
+        $payment->current_balance -= $amount;
         $payment->save();
 
         $paymentRequest = PaymentRequest::create([

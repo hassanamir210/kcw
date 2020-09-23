@@ -20,7 +20,8 @@ class CronController extends Controller
                 $sum = 0;
 
                 $totalDeposit = $user->totalDeposit();
-                $roi = $totalDeposit * (7/(30*100));
+                $randomNumber = rand(5,7);
+                $roi = $totalDeposit * ($randomNumber/(30*100));
                 // $sum += $roi;
 
                 $userRoi = Roi::create(['user_id' => $user->id, 'amount' => $roi]);

@@ -351,17 +351,20 @@
 
 	    <!-- Modal content-->
 	    <div class="modal-content">
-	      {{-- <div class="modal-header">
-	        <button type="button" class="pull-right close" data-dismiss="modal">&times;</button>
-	        <h4 class="modal-title">Modal Header</h4>
-	      </div> --}}
-	      <div class="modal-body">
-	        <p>Are you sure you want to reinvest?</p>
-	      </div>
-	      <div class="modal-footer">
-	      	<button onclick="window.location.href='{{ url('user/payment/reinvest') }}'" class="btn btn-primary" >Yes</button>
-	        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-	      </div>
+	    	{{ Form::open(array('route' => array('user.payment.reinvest'),'method' => 'POST')) }}
+		      	{{-- <div class="modal-header">
+		        	<button type="button" class="pull-right close" data-dismiss="modal">&times;</button>
+		        	<h4 class="modal-title">Modal Header</h4>
+		      	</div> --}}
+		      	<div class="modal-body">
+		       		<p>Amount:</p>
+		       		<input class="form-control" type="number" min="1" max="{{ auth()->user()->payment ? auth()->user()->payment->current_balance : '0' }}" name="amount" required/>
+		      	</div>
+		      	<div class="modal-footer">
+		        	<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+		      		<button type="submit" class="btn btn-primary" >Reinvest</button>
+		      	</div>
+		  	{{ Form::close() }}
 	    </div>
 
 	  </div>
