@@ -34,6 +34,7 @@
                             <th>@lang('Active')</th>
                             <th>@lang('Role')</th>
                             <th>@lang('Total Deposit')</th>
+                            <th>@lang('Current Balance')</th>
                             <th>@lang('Action')</th>
                         </tr>
                     </thead>
@@ -46,6 +47,7 @@
                             <td>@include('admin.user.includes.active', ['user' => $user])</td>
                             <td>{!! $user->roles_label !!}</td>
                             <td>{{ $user->isCustomer() ? $user->totalDepositedAmount() : ''}}</td>
+                            <td>{{ $user->payment ? $user->payment->current_balance : '0' }}</td>
                             <td>@include('admin.user.includes.actions', ['user' => $user])</td>
                         </tr>
                         @endforeach
