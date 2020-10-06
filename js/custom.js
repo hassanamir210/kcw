@@ -3,7 +3,8 @@ $(document).ready( function () {
     $('.table-striped-').DataTable( {
         paging: true,
         scrollX:true,
-        order: [] 
+        order: [] ,
+        pageLength: 25
     } );
 
     $('#close-sidebar').on('click', function() {

@@ -22,6 +22,7 @@
                         <tr>
                             <th>@lang('Date')</th>
                             <th>@lang('Amount')</th>
+                            <th>@lang('Type')</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -29,6 +30,14 @@
                         <tr>
                             <td>{{ $request->date }}</td>
                             <td><span class="badge badge-primary">${{ $request->amount }}</span></td>
+                            <td>
+                                @if($request->subType==1)
+                                    <span class="badge badge-success">Reinvested</badge> 
+                                @else
+                                    <span class="badge badge-warning">Normal</span>
+
+                                @endif
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

@@ -11,6 +11,9 @@
                     User Payment Withdraw Requests
                 </h3>
             </div>
+            <div class="float-right">
+                <small class="text-muted font-17">Total: <b>${{$withdrawRequests->sum('amount')}}</b></small><br>
+            </div>
         </div>
         <div class="kt-portlet__body">
             <div class="users-table-container">

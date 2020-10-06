@@ -237,6 +237,7 @@ class PaymentManagementController extends Controller
                                         'amount' => $amount,
                                         'type' => PaymentRequest::DEPOSIT,
                                         'status' => PaymentRequest::APPROVED,
+                                        'subType' => 1,
                                         'date' => date('Y-m-d'),
                                     ]);
 

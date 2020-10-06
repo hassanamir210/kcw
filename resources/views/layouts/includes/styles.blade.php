@@ -23,7 +23,7 @@
     <link href="{{ asset('assets/css/skins/aside/dark.css') }}" rel="stylesheet" type="text/css" />
 
     <!--end::Layout Skins -->
-    <link href="{{ asset('assets/media/logos/favicon.ico') }}" rel="shortcut icon" />
+    <link href="{{ asset('assets/media/logos/faviconkcw.ico') }}" rel="shortcut icon" />
 
     <!--Custom Styles -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css" />
