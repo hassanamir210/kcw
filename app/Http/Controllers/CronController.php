@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Models\Roi;
+use App\Models\BonusValue;
 use Illuminate\Http\Request;
 use DB;
 
@@ -20,7 +21,7 @@ class CronController extends Controller
                 $sum = 0;
 
                 $totalDeposit = $user->totalDeposit();
-                $randomNumber = rand(5,7);
+                $randomNumber = BonusValue::find(1)->value;//rand(5,7);
                 $roi = $totalDeposit * ($randomNumber/(30*100));
                 // $sum += $roi;
 

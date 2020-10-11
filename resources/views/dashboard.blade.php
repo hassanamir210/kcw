@@ -194,6 +194,22 @@
 		</div> --}}
 	@endcannot
 	@if(auth()->user()->id==1)
+	<div class="row">
+		<div class="col-sm-12 col-md-12 col-xl-12">
+			{{ Form::open(array('route' => 'admin.roi.update','class' => 'kt-form')) }}
+		        <div class="form-group row">
+		            <div class="col-md-12">
+		                <div class="form-group{{ $errors->has('daily_roi_value') ? ' has-error' : '' }}">
+		                    {!! Form::label('daily_roi_value', 'Daily ROI') !!}
+		                    {!! Form::number('daily_roi_value', App\Models\BonusValue::find(1)->value, ['class' => 'form-control', 'required' => 'required', 'placeholder' => 'Please enter Roi amount']) !!}
+		                    <small class="text-danger">{{ $errors->first('daily_roi_value') }}</small>
+		                </div>
+		            </div>
+		        </div><!--form-group-->
+		        <button class="btn btn-sm btn-primary float-right" type="submit">@lang('Update')</button>
+		    {{ Form::close() }}
+		</div>
+	</div>
 	<div class="row mt-5">
 		<div class="col-sm-12 col-md-6 col-xl-4">
 			<!--begin::Stats Widget 15-->

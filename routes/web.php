@@ -38,6 +38,8 @@ Route::get('ipnbtc', 'Auth\PaymentManagementController@ipnbtc');
 
 // Admin Routes
 Route::group(['middleware' => [config('access.users.super_admin'),config('access.two_factor_auth')],'prefix' => 'admin', 'as' => 'admin.','namespace' => 'Auth\Admin'], function () {
+
+    Route::post('roi/update', 'RoiController@updateRoiAmount')->name('roi.update');
     
     Route::get('home', [HomeController::class, 'index'])->name('home');
     
