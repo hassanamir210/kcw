@@ -1,84 +1,108 @@
-@extends('layouts.guest')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ config('app.name', 'Tracking') }}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->  
+    <link rel="icon" type="image/png" href="assets/media/logos/logo-5.png"/>
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/Login_v3/vendor/bootstrap/css/bootstrap.min.css') }}">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/Login_v3/fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/Login_v3/fonts/iconic/css/material-design-iconic-font.min.css') }}">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/Login_v3/vendor/animate/animate.css') }}">
+<!--===============================================================================================-->  
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/Login_v3/vendor/css-hamburgers/hamburgers.min.css') }}">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/Login_v3/vendor/animsition/css/animsition.min.css') }}">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/Login_v3/vendor/select2/select2.min.css') }}">
+<!--===============================================================================================-->  
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/Login_v3/vendor/daterangepicker/daterangepicker.css') }}">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/Login_v3/css/util.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/Login_v3/css/main.css') }}">
 
-@section('content')
-<div class="kt-grid__item kt-grid__item--fluid kt-login__wrapper">
-    <div class="kt-login__container">
-        <div class="kt-login__logo">
-            <a href="#">
-                <img style="height: 150px" src="assets/media/logos/logo-5.png">
-            </a>
-        </div>
-        <div class="kt-login__signin">
-            <div class="kt-login__head">
-                <h2 class="kt-login__title" style="color:#fff"><i>You are looking gorgeous today!</i></h2>
-                <br>
-                <h3 class="kt-login__title" style="color:#fff"><i>Login To Dashboard</i></h3>
-            </div>
-            {{ Form::open(array('route' => 'login','class' => 'kt-form')) }}
-                <div class="input-group" >
-                    <input id="user_name" type="text" class="form-control @error('user_name') is-invalid @enderror" name="user_name" value="{{ old('user_name') }}" required autocomplete="email" autofocus style="border:1px solid #fff;color:#fff">
-                </div>
-                <div class="input-group" >
-                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" style="border:1px solid #fff;color:#fff">
-                </div>
-                <div class="row kt-login__extra">
-                    <div class="col kt-align-right">
-                        <a href="{{ route('password.request') }}" class="kt-login__link" style="color:#fff">Forget Password ?</a>
+     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
+
+    <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+    
+<!--===============================================================================================-->
+</head>
+<body>
+    
+    <div class="limiter">
+        <div class="container-login100" 
+            style="{{ rand(1,2)==1 ? 'background-image: url(public/Login_v3/images/bg-001.jpg)' : 'background-image: url(public/Login_v3/images/bg-002.jpg)' }}">
+            <div class="wrap-login100" >
+                {{-- <form class="login100-form validate-form"> --}}
+                {{ Form::open(array('route' => 'login','class' => 'login100-form validate-form')) }}
+                    <span class="login100-form-logo">
+                        <img style="height: 150px" src="assets/media/logos/logo-5.png">
+                    </span>
+
+                    <span class="login100-form-title p-b-34 p-t-27">
+                        Log in
+                    </span>
+
+                    <div class="wrap-input100 validate-input" data-validate = "Enter username">
+                        <input id="user_name" type="text" placeholder="Username" class="input100 @error('user_name') is-invalid @enderror" name="user_name" value="{{ old('user_name') }}" required autocomplete="email">
+                        <span class="focus-input100" data-placeholder="&#xf207;"></span>
                     </div>
-                </div>
-                <div class="kt-login__actions">
-                    <button type="submit" class="btn btn-brand btn-elevate kt-login__btn-primary">Sign In</button>
-                </div>
-            {{ Form::close() }}
-        </div>
-        <div class="kt-login__signup">
-            <div class="kt-login__head">
-                <h3 class="kt-login__title">Sign Up</h3>
-                <div class="kt-login__desc">Enter your details to create your account:</div>
-            </div>
-            <form class="kt-form" action="">
-                <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Fullname" name="fullname">
-                </div>
-                <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Email" name="email" autocomplete="off">
-                </div>
-                <div class="input-group">
-                    <input class="form-control" type="password" placeholder="Password" name="password">
-                </div>
-                <div class="input-group">
-                    <input class="form-control" type="password" placeholder="Confirm Password" name="rpassword">
-                </div>
-                <div class="row kt-login__extra">
-                    <div class="col kt-align-left">
-                        <label class="kt-checkbox">
-                            <input type="checkbox" name="agree">I Agree the <a href="#" class="kt-link kt-login__link kt-font-bold">terms and conditions</a>.
-                            <span></span>
+
+                    <div class="wrap-input100 validate-input" data-validate="Enter password">
+                        {{-- <input class="input100" type="password" name="pass" placeholder="Password"> --}}
+                        <input id="password" type="password" placeholder="Password" class="input100 @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                        <span class="focus-input100" data-placeholder="&#xf191;"></span>
+                    </div>
+
+                    {{-- <div class="contact100-form-checkbox">
+                        <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+                        <label class="label-checkbox100" for="ckb1">
+                            Remember me
                         </label>
-                        <span class="form-text text-muted"></span>
+                    </div> --}}
+
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn">
+                            Login
+                        </button>
                     </div>
-                </div>
-                <div class="kt-login__actions">
-                    <button id="kt_login_signup_submit" class="btn btn-brand btn-elevate kt-login__btn-primary">Sign Up</button>&nbsp;&nbsp;
-                    <button id="kt_login_signup_cancel" class="btn btn-light btn-elevate kt-login__btn-secondary">Cancel</button>
-                </div>
-            </form>
-        </div>
-        <div class="kt-login__forgot">
-            <div class="kt-login__head">
-                <h3 class="kt-login__title">Forgotten Password ?</h3>
-                <div class="kt-login__desc">Enter your email to reset your password:</div>
+                    <div class="text-right p-t-90">
+                        <a href="{{ route('password.request') }}" class="txt-1" style="color:#fff">Forget Password ?</a>
+                    </div>
+
+                {{ Form::close() }}
+                {{-- </form> --}}
             </div>
-            <form class="kt-form" action="">
-                <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Email" name="email" id="kt_email" autocomplete="off">
-                </div>
-                <div class="kt-login__actions">
-                    <button id="kt_login_forgot_submit" class="btn btn-brand btn-elevate kt-login__btn-primary">Request</button>&nbsp;&nbsp;
-                    <button id="kt_login_forgot_cancel" class="btn btn-light btn-elevate kt-login__btn-secondary">Cancel</button>
-                </div>
-            </form>
         </div>
     </div>
-</div>
-@endsection
+    
+
+    <div id="dropDownSelect1"></div>
+    
+<!--===============================================================================================-->
+    <script src="{{ asset('public/Login_v3/vendor/jquery/jquery-3.2.1.min.js') }}"></script>
+<!--===============================================================================================-->
+    <script src="{{ asset('public/Login_v3/vendor/animsition/js/animsition.min.js') }}"></script>
+<!--===============================================================================================-->
+    <script src="{{ asset('public/Login_v3/vendor/bootstrap/js/popper.js') }}"></script>
+    <script src="{{ asset('public/Login_v3/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+<!--===============================================================================================-->
+    <script src="{{ asset('public/Login_v3/vendor/select2/select2.min.js') }}"></script>
+<!--===============================================================================================-->
+    <script src="{{ asset('public/Login_v3/vendor/daterangepicker/moment.min.js') }}"></script>
+    <script src="{{ asset('public/Login_v3/vendor/daterangepicker/daterangepicker.js') }}"></script>
+<!--===============================================================================================-->
+    <script src="{{ asset('public/Login_v3/vendor/countdowntime/countdowntime.js') }}"></script>
+<!--===============================================================================================-->
+    <script src="{{ asset('public/Login_v3/js/main.js') }}"></script>
+    @include('layouts.includes.scripts')
+    @include('layouts.includes.partials.messages')
+    
+
+</body>
+</html>
