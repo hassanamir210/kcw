@@ -86,10 +86,10 @@
                 <li class="kt-menu__item" aria-haspopup="true"><a href="{{ url('/admin/token-buy-stats') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text font-17">Token Buy Stats</span><span class="kt-menu__link-badge"></a></li>
                 @endcan
                 @can('payment management')
-                    @if(check_subdomain(url()->current()))
+                    {{-- @if(check_subdomain(url()->current())) --}}
                         <li class="kt-menu__item" aria-haspopup="true"><a href="{{ url('/user/token-value-stats') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text font-17">Token Value Stats</span><span class="kt-menu__link-badge"></a></li>
                         <li class="kt-menu__item" aria-haspopup="true"><a href="{{ url('/user/token-buy-stats') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text font-17">Token Buy Stats</span><span class="kt-menu__link-badge"></a></li>
-                    @else
+                    {{-- @else --}}
                         <li class="kt-menu__item" aria-haspopup="true"><a href="{{ route('user.payment.deposit') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text font-17">Deposit</span><span class="kt-menu__link-badge"></a></li>
                         <li class="kt-menu__item" aria-haspopup="true"><a href="{{ route('user.payment.withdraw') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text font-17">Withdraw</span><span class="kt-menu__link-badge"></a></li>
                         <li class="kt-menu__item" aria-haspopup="true"><a href="{{ route('user.target') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text font-17">Target</span><span class="kt-menu__link-badge"></a></li>
@@ -168,7 +168,7 @@
                                 <button style="width:100%" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Refund Amount</button>
                             </div>
                         @endif
-                    @endif
+                    {{-- @endif --}}
                 @endcan
             </ul>
         </div>
