@@ -35,6 +35,7 @@
                             <th>@lang('Role')</th>
                             <th>@lang('Total Deposit')</th>
                             <th>@lang('Current Balance')</th>
+                            <th>@lang('KCW Token')</th>
                             <th>@lang('Action')</th>
                         </tr>
                     </thead>
@@ -48,6 +49,7 @@
                             <td>{!! $user->roles_label !!}</td>
                             <td>{{ $user->isCustomer() ? $user->totalDepositedAmount() : ''}}</td>
                             <td>{{ $user->payment ? $user->payment->current_balance : '0' }}</td>
+                            <td>{!! $user->total_tokens !!}</td>
                             <td>@include('admin.user.includes.actions', ['user' => $user])</td>
                         </tr>
                         @endforeach

@@ -27,6 +27,28 @@
 				<!--end::Stats Widget 13-->
 			</div>
 		</div>
+		<div class="row mt-5">
+			<div class="col-sm-12 col-md-12 col-xl-12">
+				<!--begin::Stats Widget 13-->
+				<a href="javascript::void(0)" class="card card-custom bg-danger bg-hover-state-danger card-stretch gutter-b daily-background">
+					<!--begin::Body-->
+					<div class="card-body">
+						<div class="text-inverse-white font-weight-bolder font-25 font-size-h5 mb-2 mt-5 text-center">Total Tokens</div>
+						<div class="font-weight-bold text-inverse-white text-center font-23">{{ auth()->user() ? auth()->user()->total_tokens : '0' }}
+							<br>
+							<small>
+								Today Token Value: ${{\App\Models\BonusValue::find(3)->value}}
+							</small>
+						</div>
+						@if( auth()->user()->total_tokens>0)
+							<button class="transfer-payment-btn pull-right" data-toggle="modal" data-target="#sell">Sell</button>
+						@endif
+					</div>
+					<!--end::Body-->
+				</a>
+				<!--end::Stats Widget 13-->
+			</div>
+		</div>
 		
 		<div class="row mt-5">
 			<div class="col-sm-6 col-md-6 col-xl-6">
@@ -198,11 +220,32 @@
 		<div class="col-sm-12 col-md-12 col-xl-12">
 			{{ Form::open(array('route' => 'admin.roi.update','class' => 'kt-form')) }}
 		        <div class="form-group row">
-		            <div class="col-md-12">
+		            <div class="col-lg-6 col-md-6 col-sm-12">
 		                <div class="form-group{{ $errors->has('daily_roi_value') ? ' has-error' : '' }}">
 		                    {!! Form::label('daily_roi_value', 'Daily ROI') !!}
 		                    {!! Form::number('daily_roi_value', App\Models\BonusValue::find(1)->value, ['class' => 'form-control', 'required' => 'required', 'placeholder' => 'Please enter Roi amount']) !!}
 		                    <small class="text-danger">{{ $errors->first('daily_roi_value') }}</small>
+		                </div>
+		            </div>
+		            <div class="col-lg-6 col-md-6 col-sm-12">
+		                <div class="form-group{{ $errors->has('daily_dollar_value') ? ' has-error' : '' }}">
+		                    {!! Form::label('daily_dollar_value', 'Daily Dollar') !!}
+		                    {!! Form::number('daily_dollar_value', App\Models\BonusValue::find(2)->value, ['class' => 'form-control', 'required' => 'required', 'placeholder' => 'Please enter Dollar amount']) !!}
+		                    <small class="text-danger">{{ $errors->first('daily_dollar_value') }}</small>
+		                </div>
+		            </div>
+		            <div class="col-lg-6 col-md-6 col-sm-12">
+		                <div class="form-group{{ $errors->has('daily_token_value') ? ' has-error' : '' }}">
+		                    {!! Form::label('daily_token_value', 'Daily Token Value') !!}
+		                    {!! Form::number('daily_token_value', App\Models\BonusValue::find(3)->value, ['class' => 'form-control', 'required' => 'required', 'placeholder' => 'Please enter Roi amount']) !!}
+		                    <small class="text-danger">{{ $errors->first('daily_token_value') }}</small>
+		                </div>
+		            </div>
+		            <div class="col-lg-6 col-md-6 col-sm-12">
+		                <div class="form-group{{ $errors->has('max_token_amount') ? ' has-error' : '' }}">
+		                    {!! Form::label('max_token_amount', 'Max Token Amount') !!}
+		                    {!! Form::number('max_token_amount', App\Models\BonusValue::find(4)->value, ['class' => 'form-control', 'required' => 'required', 'placeholder' => 'Please enter Dollar amount']) !!}
+		                    <small class="text-danger">{{ $errors->first('max_token_amount') }}</small>
 		                </div>
 		            </div>
 		        </div><!--form-group-->
@@ -379,6 +422,26 @@
 		      	<div class="modal-footer">
 		        	<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 		      		<button type="submit" class="btn btn-primary" >Reinvest</button>
+		      	</div>
+		  	{{ Form::close() }}
+	    </div>
+
+	  </div>
+	</div>
+
+	<div id="sell" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	    	{{ Form::open(array('route' => array('user.payment.sell'),'method' => 'POST')) }}
+		      	<div class="modal-body">
+		      		Are you sure you want to sell your tokens?
+		       		<input class="form-control" type="hidden" name="total_tokens" value="{{auth()->user()->total_tokens}}" required/>
+		      	</div>
+		      	<div class="modal-footer">
+		        	<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+		      		<button type="submit" class="btn btn-primary" >Sell</button>
 		      	</div>
 		  	{{ Form::close() }}
 	    </div>

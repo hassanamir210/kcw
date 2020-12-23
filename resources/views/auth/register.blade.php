@@ -4,8 +4,14 @@
     <div class="wrap-login100" style="background: #716666ab;width: 750px" >
         <form method="POST" action="{{ route('register') }}">
             @csrf
-
+            
             <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12 float-right">
+                    <h4 style="color:white;">
+                        Referred By: {{user_name(app('request')->input('ref'))}}
+                    </h4>
+                    <hr><br><br>
+                </div>
                 <div class="col-sm-12 col-md-6 col-lg-6">
                     <div class="wrap-input100 validate-input" data-validate = "Enter First Name">
                         <input autofocus for="first_name" id="first_name" type="text" placeholder="" class="input100 @error('first_name') is-invalid @enderror" name="first_name" value="{{ old('first_name') }}" required autocomplete="fasle">

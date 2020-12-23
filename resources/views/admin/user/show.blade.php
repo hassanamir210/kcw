@@ -48,6 +48,30 @@
                                             </td>
                                         </tr>
                                         <tr>
+                                            <th>@lang('Bank Account No')</th>
+                                            <td>
+                                                <span class="label label-warning label-pill label-inline mr-2">{{ $user->bank_account_no }}</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>@lang('Bank Name')</th>
+                                            <td>
+                                                <span class="label label-warning label-pill label-inline mr-2">{{ $user->bank_name }}</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>@lang('Bank User Title')</th>
+                                            <td>
+                                                <span class="label label-warning label-pill label-inline mr-2">{{ $user->bank_user_title }}</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>@lang('Bank Branch Code')</th>
+                                            <td>
+                                                <span class="label label-warning label-pill label-inline mr-2">{{ $user->bank_branch_code }}</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <th>@lang('Status')</th>
                                             <td>@include('admin.user.includes.status', ['user' => $user])</td>
                                         </tr>
@@ -92,6 +116,28 @@
                             <div class="card-body">
                                 <div class="text-inverse-white font-weight-bolder font-25 font-size-h5 mb-2 mt-5 text-center">Current Balance</div>
                                 <div class="font-weight-bold text-inverse-white text-center font-23">${{ $user->payment ? $user->payment->current_balance : '0' }}</div>
+                            </div>
+                            <!--end::Body-->
+                        </a>
+                        <!--end::Stats Widget 13-->
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-sm-12 col-md-12 col-xl-12">
+                        <!--begin::Stats Widget 13-->
+                        <a href="javascript::void(0)" class="card card-custom bg-danger bg-hover-state-danger card-stretch gutter-b daily-background">
+                            <!--begin::Body-->
+                            <div class="card-body">
+                                <div class="text-inverse-white font-weight-bolder font-25 font-size-h5 mb-2 mt-5 text-center">Total Tokens</div>
+                                <div class="font-weight-bold text-inverse-white text-center font-23">{{ auth()->user() ? auth()->user()->total_tokens : '0' }}
+                                    <br>
+                                    <small>
+                                        Today Token Value: ${{\App\Models\BonusValue::find(3)->value}}
+                                    </small>
+                                </div>
+                                @if( auth()->user()->total_tokens>0)
+                                    <button class="transfer-payment-btn pull-right" data-toggle="modal" data-target="#sell">Sell</button>
+                                @endif
                             </div>
                             <!--end::Body-->
                         </a>

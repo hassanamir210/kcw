@@ -13,6 +13,8 @@ use App\Notifications\WithdrawApproved;
 use App\Notifications\WithdrawRejected;
 use App\User;
 
+use Carbon\Carbon;
+
 
 class PaymentRequestController extends Controller
 {
@@ -29,10 +31,40 @@ class PaymentRequestController extends Controller
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function withdrawRequests() {
-        return view('auth.payment.withdraw-requests')
-            ->withWithdrawRequests($this->paymentRequest->where('status', PaymentRequest::PENDING)
-                ->where('type', PaymentRequest::WITHDRAW)->orderBy('id','desc')->get());
+    public function withdrawRequests($type,$filter='w') 
+    {
+
+        if(!in_array($filter, ['w','m','y']))
+            return abort(404);
+
+        $now = Carbon::now()->format('Y-m-d');
+        $type = decrypt($type);
+        
+        $end = "";
+        $start="";
+        if($filter=='w')
+        {
+            $end = Carbon::parse($now)->format('Y-m-d');
+            $start = Carbon::parse($now)->subday(6)->format('Y-m-d');
+        }
+        elseif($filter=='m')
+        {
+            $end = Carbon::parse($now)->format('Y-m-d');
+            $start = Carbon::parse($now)->subday(30)->format('Y-m-d');
+        }
+        else
+        {
+            $end = Carbon::parse($now)->format('Y-m-d');
+            $start = Carbon::parse($now)->subMonth(12)->format('Y-m-d');
+        }
+            
+        return view('auth.payment.withdraw-requests',compact('type'))
+                ->withWithdrawRequests($this->paymentRequest->where('status', PaymentRequest::PENDING)
+                    ->where('withdraw_type',$type)
+                    ->where('type', PaymentRequest::WITHDRAW)
+                    ->where('created_at','>=',$start)
+                    ->where('created_at','<=',$end)
+                    ->orderBy('id','desc')->get());
     }
 
     /**

@@ -10,13 +10,15 @@ use App\Models\Payment;
 use App\Models\PaymentRequest;
 use App\Models\Roi;
 use App\Models\TeamBonus;
+use App\Models\TokenBuyHistory;
+use App\Models\BonusValue;
 use App\Http\Requests\Auth\WithdrawPaymentRequest;
 use App\Http\Requests\Auth\DepositPaymentRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\WithdrawRequest;
 use App\Notifications\DepositSuccess;
 use App\User;
-
+use Carbon\Carbon;
 class PaymentManagementController extends Controller
 {
     /**
@@ -47,20 +49,56 @@ class PaymentManagementController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function verifyWithdraw(Request $request) {
-
         $request->validate([
             'withdraw_two_factor_code' => 'integer|required',
         ]);
 
         if($request->input('withdraw_two_factor_code') == auth()->user()->withdraw_two_factor_code)
-        {
-            $paymentRequest = $this->paymentRequest->withdraw($request->all());
+        {   
+            $array = explode('@',decrypt($request['withdraw_amount']));
+            if ($array[1]=="KCW Token") {
+                $today = Carbon::now()->format('Y-m-d');
+                $tokenBuyHistorySum = TokenBuyHistory::whereDate('created_at',$today)
+                                                    ->sum('amount');
+                $todayMaxTokenAmount = BonusValue::find(4)->value;
+                $remainingAmount = $todayMaxTokenAmount - $tokenBuyHistorySum;
+                if($request->withdraw_amount<=$remainingAmount)
+                {
+                    $tokenBuyHistory = TokenBuyHistory::create([
+                                        "amount"=>$array[0]
+                                        ]);
+                    
+                    $totalTokens = $array[0]/BonusValue::find(3)->value;
+                    
+                    $user = User::where('id', Auth::user()->id)->first();
+                    $user->total_tokens +=$totalTokens;
+                    $user->save();
 
-            auth()->user()->resetWithdrawTwoFactorCode();
+                    $totalTokensOverall = BonusValue::find(5);
+                    $totalTokensOverall->value-=$totalTokens;
+                    $totalTokensOverall->save();
+                    
+                    $payment = Payment::where('user_id', Auth::user()->id)->first();
+                    $payment->current_balance -= $array[0];
+                    $payment->save();
 
-            auth()->user()->notify(new WithdrawRequest());
+                    return redirect()->route('user.home')->withFlashSuccess('You bought KCW Tokens successfully');
+                }
+                else
+                {
+                    return redirect()->back()->withFlashDanger(__('Sorry today\' token stock ended. You can try tommorrow'));
+                }
+            }
+            else
+            {
+                $paymentRequest = $this->paymentRequest->withdraw($request->all());
 
-            return redirect()->route('user.home')->withFlashSuccess('Your request to withdraw amount sent successfully');
+                auth()->user()->resetWithdrawTwoFactorCode();
+
+                auth()->user()->notify(new WithdrawRequest());
+
+                return redirect()->route('user.home')->withFlashSuccess('Your request to withdraw amount sent successfully');
+            }
         }
 
         return redirect()->back()
@@ -130,11 +168,31 @@ class PaymentManagementController extends Controller
      * @throws \Throwable
      */
     public function withDrawAmount(WithdrawPaymentRequest $request) {
-
         $user = Auth::user();
-        if (!auth()->user()->block_chain_address) {
+        if ($request->withdraw_type=="Block Chain" && !auth()->user()->block_chain_address) {
 
             return redirect('profile/'.auth()->user()->id.'/edit')->withFlashDanger(__('You must provide your BTC address to proccess your withdraw.'));
+        }
+
+        if ($request->withdraw_type=="Bank Account" &&  (!auth()->user()->bank_account_no || !auth()->user()->bank_name || !auth()->user()->bank_user_title || !auth()->user()->bank_branch_code)) {
+
+            return redirect('profile/'.auth()->user()->id.'/edit')->withFlashDanger(__('You must provide your complete Bank Details to proccess your withdraw.'));
+        }
+
+        if ($request->withdraw_type=="KCW Token") {
+            $today = Carbon::now()->format('Y-m-d');
+            $tokenBuyHistorySum = TokenBuyHistory::whereDate('created_at',$today)
+                                                ->sum('amount');
+            $todayMaxTokenAmount = BonusValue::find(4)->value;
+            $remainingAmount = $todayMaxTokenAmount - $tokenBuyHistorySum;
+            if($request->withdraw_amount<=$remainingAmount)
+            {
+
+            }
+            else
+            {
+                return redirect()->back()->withFlashDanger(__('Sorry today\' token stock ended. You can try tommorrow'));
+            }
         }
 
         if ($user->payment->current_balance == Payment::DEFAULT_BALANCE_ZERO) {
@@ -149,7 +207,8 @@ class PaymentManagementController extends Controller
         
         event(new VerifyPaymentWithdraw($request));
 
-        return redirect('user/verify/payment/withdraw?amount='.encrypt($request->withdraw_amount))
+        $string = $request->withdraw_amount."@".$request->withdraw_type;
+        return redirect('user/verify/payment/withdraw?amount='.encrypt($string))
                     ->withFlashInfo(__('Check your email to verify payment withdraw request.'));
         //back()->withFlashInfo(__('Check your email to verify payment withdraw request.'));
     }
@@ -243,6 +302,40 @@ class PaymentManagementController extends Controller
 
 
         return redirect()->route('user.home')->withFlashSuccess(__('Your amount is reinvested successfully.'));
+    }
+
+    /**
+     * @param  void
+     *
+     * @return mixed
+     * @throws \App\Exceptions\GeneralException
+     * @throws \Throwable
+     */
+    public function sellTokens(Request $request) {
+    
+        if (!auth()->user()->bank_account_no || !auth()->user()->bank_name || !auth()->user()->bank_user_title || !auth()->user()->bank_branch_code) 
+        {
+
+            return redirect('profile/'.auth()->user()->id.'/edit')->withFlashDanger(__('You must provide your complete Bank Details to proccess your withdraw.'));
+        }
+
+        $tokenValue = BonusValue::find(3)->value;
+        $totalTokens= $request->total_tokens;
+
+        $totalValue = $tokenValue*$totalTokens;
+
+        $data = ["withdraw_amount" => encrypt($totalValue."@KCW Token")];
+
+        $paymentRequest = $this->paymentRequest->withdraw($data);
+
+        $user = User::where('id',auth()->user()->id)
+                    ->update(["total_tokens"=>0]);
+
+        $totalTokenStock = BonusValue::find(5);
+        $totalTokenStock->value += $totalTokens;
+        $totalTokenStock->save();
+
+        return redirect()->route('user.home')->withFlashSuccess('Your request to sell tokens sent successfully. You will receive payments through Bank Account in 48 Hours');
     }
 
     /**

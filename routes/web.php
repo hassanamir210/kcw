@@ -39,9 +39,15 @@ Route::get('ipnbtc', 'Auth\PaymentManagementController@ipnbtc');
 // Admin Routes
 Route::group(['middleware' => [config('access.users.super_admin'),config('access.two_factor_auth')],'prefix' => 'admin', 'as' => 'admin.','namespace' => 'Auth\Admin'], function () {
 
+
+    Route::get('token-value-stats/{type?}', [HomeController::class, 'tokenValueStats'])->name('tokenValueStats');
+    Route::get('token-buy-stats/{type?}', [HomeController::class, 'tokenBuyStats'])->name('tokenBuyStats');
+    
     Route::post('roi/update', 'RoiController@updateRoiAmount')->name('roi.update');
     
     Route::get('home', [HomeController::class, 'index'])->name('home');
+    Route::get('token-value-stats/{type?}', [HomeController::class, 'tokenValueStats'])->name('tokenValueStats');
+    Route::get('token-buy-stats/{type?}', [HomeController::class, 'tokenBuyStats'])->name('tokenBuyStats');
     
     Route::get('inbox', [MessageController::class, 'adminInbox'])->name('inbox');
     Route::post('message/store', [MessageController::class, 'storeAdminMessage'])->name('messages.store');
@@ -66,7 +72,7 @@ Route::group(['middleware' => [config('access.users.super_admin'),config('access
     Route::get('confirm/{user}', 'UserConfirmationController@confirm')->name('user.confirm');
     Route::get('unconfirm/{user}', 'UserConfirmationController@unconfirm')->name('user.unconfirm');
 
-    Route::get('payment/withdraw/requests', 'PaymentRequestController@withdrawRequests')->name('payment.withdraw.requests');
+    Route::get('payment/withdraw/requests/{type}/{filter?}', 'PaymentRequestController@withdrawRequests')->name('payment.withdraw.requests');
     Route::get('payment/withdraw/request/accept', 'PaymentRequestController@withdrawRequestAction')->name('payment.withdraw.request.action');
 
     Route::get('payment/withdraw/request/reject/form', 'PaymentRequestController@withdrawRequestRejectForm')->name('payment.withdraw.request.reject.form');
@@ -83,6 +89,8 @@ Route::group(['middleware' => [config('access.users.customer_role'),config('acce
     Route::post('messages/store', 'MessageController@store')->name('messages.store');
 
     Route::get('home', [HomeController::class, 'index'])->name('home');
+    Route::get('token-value-stats/{type?}', [HomeController::class, 'tokenValueStats'])->name('tokenValueStats');
+    Route::get('token-buy-stats/{type?}', [HomeController::class, 'tokenBuyStats'])->name('tokenBuyStats');
     Route::get('users/level/{id}', [UserController::class, 'usersByLevel'])->name('user-by-levels');
 
     Route::get('payment/withdraw', 'PaymentManagementController@withdraw')->name('payment.withdraw');
@@ -91,6 +99,7 @@ Route::group(['middleware' => [config('access.users.customer_role'),config('acce
     Route::get('payment/roi/transfer', 'PaymentManagementController@transferRoiPayment')->name('payment.roi.transfer');
 
     Route::post('payment/reinvest', 'PaymentManagementController@reinvestCurrentBalance')->name('payment.reinvest');
+    Route::post('payment/sell', 'PaymentManagementController@sellTokens')->name('payment.sell');
 
     Route::get('payment/team/bonus/transfer', 'PaymentManagementController@transferTeamBonusPayment')->name('payment.team.bonus.transfer');
 

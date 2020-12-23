@@ -55,5 +55,6 @@
     <!-- Include scripts -->
     @include('layouts.includes.scripts')
     @include('layouts.includes.partials.messages')
+    @yield('scripts')
 </body>
 </html>

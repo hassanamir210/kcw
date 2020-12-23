@@ -180,6 +180,10 @@ class UserService extends BaseService
         $user->first_name = $data['first_name'] ?? null;
         $user->last_name = $data['last_name'] ?? null;
         $user->block_chain_address = $data['block_chain_address'] ?? null;
+        $user->bank_account_no = $data['bank_account_no'] ?? null;
+        $user->bank_name = $data['bank_name'] ?? null;
+        $user->bank_user_title = $data['bank_user_title'] ?? null;
+        $user->bank_branch_code = $data['bank_branch_code'] ?? null;
 
         $user->profile->mobile_number = $data['mobile_number'] ?? null;
         $user->profile->street = $data['street'] ?? null;

@@ -35,7 +35,7 @@ class PaymentRequest extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id','amount','date','type','status','subType'];
+    protected $fillable = ['user_id','amount','date','type','status','subType','withdraw_type','dollar_value'];
 
     /**
      * @return string
@@ -56,12 +56,15 @@ class PaymentRequest extends Model
         DB::beginTransaction();
 
         try {
+            $array = explode('@',decrypt($data['withdraw_amount']));
             $paymentRequest = parent::create([
                 'user_id' => Auth::user()->id,
-                'amount' => decrypt($data['withdraw_amount']),
+                'amount' => $array[0],
                 'type' => self::WITHDRAW,
                 'status' => self::PENDING,
                 'date' => date('Y-m-d'),
+                'withdraw_type'=>$array[1],
+                'dollar_value'=>BonusValue::find(2)->value,
             ]);
         
             $payment = Payment::where('user_id', Auth::user()->id)->first();

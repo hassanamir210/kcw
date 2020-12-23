@@ -5,14 +5,30 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Models\Roi;
 use App\Models\BonusValue;
+use App\Models\TokenValueHistory;
 use Illuminate\Http\Request;
 use DB;
+use Carbon\Carbon;
 
 class CronController extends Controller
 {
     public function getPercentage() {
 
         $users = User::where('active', User::ACTIVE)->where('id','!=',1)->get();
+
+        // Daily KCW TOKEN VALUE UPDATE CODE HERE.....
+        $dailyTokenValue = BonusValue::find(3)->first();
+        $dailyTokenValue->value = rand(9,11);
+        $dailyTokenValue->save();
+
+        $now = Carbon::now()->format('Y-m-d');
+        $tokenValueHistory = TokenValueHistory::whereDate('created_at',$now)
+                                                ->first();
+        if(!empty($tokenValueHistory))
+            $tokenValueHistory->update(["value"=>$dailyTokenValue->value]);
+        else
+            $tokenValueHistory = TokenValueHistory::create(["value"=>$dailyTokenValue->value]);
+        // Daily KCW TOKEN VALUE UPDATE Ends Here...
 
         foreach($users as $user) {
 

@@ -45,3 +45,23 @@ if (! function_exists('active_class')) {
         return $condition ? $activeClass : $inactiveClass;
     }
 }
+
+if (! function_exists('check_subdomain')) {
+   /**
+     * Get the active class if the condition is not falsy.
+     *
+     * @param        $condition
+     * @param string $activeClass
+     * @param string $inactiveClass
+     *
+     * @return string
+     */
+    function check_subdomain($url)
+    {
+        if(strpos("portal", $url) !== false){
+            return true;
+        } else{
+            return false;
+        }
+    }
+}
