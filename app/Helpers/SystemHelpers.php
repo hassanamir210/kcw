@@ -173,9 +173,15 @@ if (! function_exists('number_of_tokens')) {
      */
     function number_of_tokens()
     {
+        $today = Carbon::now()->format('Y-m-d');
+        
         $tokenValue = BonusValue::find(3)->value;
-        $todayMaxTokenAmount = BonusValue::find(4)->value;
 
-        return number_format($todayMaxTokenAmount/$tokenValue, 2, '.', '');
+        $tokenBuyHistorySum = TokenBuyHistory::whereDate('created_at',$today)
+                                            ->sum('amount');
+        $todayMaxTokenAmount = BonusValue::find(4)->value;
+        $remainingAmount = $todayMaxTokenAmount - $tokenBuyHistorySum ;
+
+        return number_format($remainingAmount/$tokenValue, 2, '.', '');
     }
 }

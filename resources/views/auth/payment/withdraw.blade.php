@@ -36,7 +36,7 @@
                     {!! Form::number('withdraw_amount', null, ['class' => 'form-control', 'required' => 'required', 'placeholder' => 'Please enter withdraw amount']) !!}
                     <small class="text-danger">{{ $errors->first('withdraw_amount') }}</small>
                     <span id="bank_account" class="bank_account_note">Your entered amount will be multiplied by Rs. {{App\Models\BonusValue::find(2)->value}}</span>
-                    <span id="kcw_token" class="kcw_token_note">Rmaining Max Amount to buy tokens Rs. {{remainingTokenAmount()}} for tokens {{number_of_tokens()}}</span>
+                    <span id="kcw_token" class="kcw_token_note">Rmaining Max Amount to buy tokens $ {{remainingTokenAmount()}} for tokens {{number_of_tokens()}}</span>
                 </div>
             </div>
         </div><!--form-group-->
