@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Payment;
 use App\Models\PaymentRequest;
+use App\Models\TokenRedeem;
+use App\Models\BonusValue;
 use App\Http\Requests\Auth\WithdrawPaymentRequest;
 use App\Http\Requests\Auth\DepositPaymentRequest;
 use Illuminate\Support\Facades\Auth;
@@ -26,6 +28,38 @@ class PaymentRequestController extends Controller
     public function __construct(PaymentRequest $paymentRequest)
     {
         $this->paymentRequest = $paymentRequest;
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function listRedeems() {
+        $redeems = TokenRedeem::orderby('id','desc')->get();
+        return view('auth.payment.token-redeem',compact('redeems'));
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function addRedeem($id) {
+
+        $tokenRedeem = TokenRedeem::find($id);
+
+        if(!$tokenRedeem->status)
+        {
+            $totalTokenStock = BonusValue::find(5);
+            $totalTokenStock->value += $tokenRedeem->tokens;
+            $totalTokenStock->save();
+
+            $tokenRedeem->status=1;
+            $tokenRedeem->save();
+        }
+        else
+        {
+            return redirect()->back()->withFlashDanger(__('Added already!'));
+        }
+
+        return redirect()->back()->withFlashInfo(__('Added sucessfully'));
     }
 
     /**
@@ -84,7 +118,7 @@ class PaymentRequestController extends Controller
             $user = User::where('id',decrypt($request->user_id))->first();
             $user->notify(new WithdrawApproved());
 
-            return redirect()->back()->withFlashInfo(__('Request approved suucessfully'));
+            return redirect()->back()->withFlashInfo(__('Request approved sucessfully'));
         }
 
         if ($flag === PaymentRequest::REJECTED) {
@@ -96,7 +130,7 @@ class PaymentRequestController extends Controller
             $model->status = PaymentRequest::REJECTED;
             $model->save();
 
-            return redirect()->back()->withFlashInfo(__('Request rejected suucessfully'));
+            return redirect()->back()->withFlashInfo(__('Request rejected sucessfully'));
         }
     }
 
@@ -135,6 +169,6 @@ class PaymentRequestController extends Controller
         $model->status = PaymentRequest::REJECTED;
         $model->save();
 
-        return redirect('admin/payment/withdraw/requests')->withFlashInfo(__('Request rejected suucessfully'));
+        return redirect('admin/payment/withdraw/requests')->withFlashInfo(__('Request rejected sucessfully'));
     }
 }

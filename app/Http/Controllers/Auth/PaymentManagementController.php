@@ -10,6 +10,7 @@ use App\Models\Payment;
 use App\Models\PaymentRequest;
 use App\Models\Roi;
 use App\Models\TeamBonus;
+use App\Models\TokenRedeem;
 use App\Models\TokenBuyHistory;
 use App\Models\BonusValue;
 use App\Http\Requests\Auth\WithdrawPaymentRequest;
@@ -191,7 +192,7 @@ class PaymentManagementController extends Controller
             }
             else
             {
-                return redirect()->back()->withFlashDanger(__('Sorry today\' token stock ended. You can try tommorrow'));
+                return redirect()->back()->withFlashDanger(__('Sorry today\'s token stock ended. You can try tommorrow'));
             }
         }
 
@@ -331,9 +332,11 @@ class PaymentManagementController extends Controller
         $user = User::where('id',auth()->user()->id)
                     ->update(["total_tokens"=>0]);
 
-        $totalTokenStock = BonusValue::find(5);
-        $totalTokenStock->value += $totalTokens;
-        $totalTokenStock->save();
+        $tokenRedeem  = TokenRedeem::create([
+                                        "tokens"=>$totalTokens,
+                                        "value"=>$totalValue,
+                                        "user_id"=>auth()->user()->id
+                                    ]);
 
         return redirect()->route('user.home')->withFlashSuccess('Your request to sell tokens sent successfully. You will receive payments through Bank Account in 48 Hours');
     }

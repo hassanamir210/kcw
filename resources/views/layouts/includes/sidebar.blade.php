@@ -82,6 +82,7 @@
                         </ul>
                     </div>
                 </li>
+                <li class="kt-menu__item" aria-haspopup="true"><a href="{{ url('/admin/list/redeems') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text font-17">List Redeems</span><span class="kt-menu__link-badge"></a></li>
                 <li class="kt-menu__item" aria-haspopup="true"><a href="{{ url('/admin/token-value-stats') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text font-17">Token Value Stats</span><span class="kt-menu__link-badge"></a></li>
                 <li class="kt-menu__item" aria-haspopup="true"><a href="{{ url('/admin/token-buy-stats') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text font-17">Token Buy Stats</span><span class="kt-menu__link-badge"></a></li>
                 @endcan
