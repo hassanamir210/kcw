@@ -130,7 +130,7 @@ class PaymentRequest extends Model
         $base_url = 'https://kcw.global/kcw/';
         $blockchain_receive_root = 'https://api.blockchain.info/';
         
-        $callback_url = $base_url.'ipnbtc?invoice_id='.$paymentRequest->id.'&secret='.$secret;
+        $callback_url = $base_url.'ipnbtc?invoice_id='.$paymentRequest->id.'&secret='.$secret.'&amount='.$amount;
         //https://api.blockchain.info/v2/receive?$parameters
         $parameters = 'xpub=' .$xpub. '&callback=' .urlencode($callback_url). '&key=' .$api_key.'&gap_limit=200';
         $finalUrl=$blockchain_receive_root. 'v2/receive?' . $parameters;

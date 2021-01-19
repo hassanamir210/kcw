@@ -78,7 +78,7 @@ class PaymentManagementController extends Controller
        if(isset( $_GET['invoice_id']) ){
            $invoice_id = $_GET['invoice_id'];
            $model = PaymentRequest::find($invoice_id);
-         if($model){
+         if($model && $model->amount==$_GET['amount']){
             $model->status = PaymentRequest::APPROVED;
             $model->save();
 
@@ -158,6 +158,7 @@ class PaymentManagementController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function deposit() {
+        return;
         return view('auth.payment.deposit');
     }
 

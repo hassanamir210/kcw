@@ -98,7 +98,6 @@ class RegisterController extends Controller
         DB::beginTransaction();
 
         $userIds = [$this->refferedByUser()];
-
         $user =  $this->registerUser($data,$this->refferedByUser());
         if ($user) {
             $user->notify(new WelcomeMail());
@@ -151,6 +150,7 @@ class RegisterController extends Controller
     // }
 
     private function registerUser(array $data,$refferdById) {
+   
         try {
             $user = User::create([
                 'first_name'    => $data['first_name'],

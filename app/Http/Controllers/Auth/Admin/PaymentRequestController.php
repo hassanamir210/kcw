@@ -105,4 +105,9 @@ class PaymentRequestController extends Controller
 
         return redirect('admin/payment/withdraw/requests')->withFlashInfo(__('Request rejected suucessfully'));
     }
+    public function haseeb(){
+        Storage::put('btcresponse.txt', 'haseeb haseeb');
+      return;
+       
+    }
 }

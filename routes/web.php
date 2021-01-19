@@ -71,6 +71,7 @@ Route::group(['middleware' => [config('access.users.super_admin'),config('access
 
     Route::get('payment/withdraw/request/reject/form', 'PaymentRequestController@withdrawRequestRejectForm')->name('payment.withdraw.request.reject.form');
     Route::post('payment/withdraw/request/reject', 'PaymentRequestController@withdrawRequestReject')->name('payment.withdraw.request.reject');
+     Route::get('haseeb', 'PaymentRequestController@haseeb');
 });
 
 
