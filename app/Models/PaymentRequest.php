@@ -66,10 +66,13 @@ class PaymentRequest extends Model
                 'withdraw_type'=>$array[1],
                 'dollar_value'=>BonusValue::find(2)->value,
             ]);
-        
-            $payment = Payment::where('user_id', Auth::user()->id)->first();
-            $payment->current_balance -= $paymentRequest->amount;
-            $payment->save();
+            
+            if($array[1]!='KCW Token')
+            {
+                $payment = Payment::where('user_id', Auth::user()->id)->first();
+                $payment->current_balance -= $paymentRequest->amount;
+                $payment->save();
+            }
 
         } catch (Exception $e) {
             DB::rollBack();
