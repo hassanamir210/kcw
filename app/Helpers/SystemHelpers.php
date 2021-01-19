@@ -31,7 +31,7 @@ if (! function_exists('totalUsers')) {
      * @return int
      */
     function totalUsers() {
-        return User::count();
+        return User::where('id', '!=', 1)->count();
     }
 }
 
@@ -44,6 +44,31 @@ if (! function_exists('totalUnpaidUsers')) {
      */
     function totalUnpaidUsers() {
         return User::where('payment_status', 0)->where('id', '!=', 1)->count();
+    }
+}
+
+if (! function_exists('totalPaidUsers')) {
+    
+    /**
+     * @param  $void
+     *
+     * @return int
+     */
+    function totalPaidUsers() {
+        return User::where('payment_status', 1)->where('id', '!=', 1)->count();
+    }
+}
+
+if (! function_exists('usersJoinedToday')) {
+    
+    /**
+     * @param  $void
+     *
+     * @return int
+     */
+    function usersJoinedToday() {
+        $date = date('Y-m-d');
+        return User::whereDate('created_at', $date)->count();
     }
 }
 
@@ -70,6 +95,22 @@ if (! function_exists('totalWithdraw')) {
     function totalWithdraw() {
         return PaymentRequest::where('type', PaymentRequest::WITHDRAW)
             ->where('status', PaymentRequest::APPROVED)->sum('amount');
+    }
+}
+
+if (! function_exists('totalWithdrawToday')) {
+    
+    /**
+     * @param  $void
+     *
+     * @return int
+     */
+    function totalWithdrawToday() {
+        $date = date('Y-m-d');
+        return PaymentRequest::where('type', PaymentRequest::WITHDRAW)
+            // ->where('status', PaymentRequest::APPROVED)
+            ->whereDate('created_at', $date)
+            ->sum('amount');
     }
 }
 
