@@ -160,6 +160,15 @@ class UserController extends Controller
         return view('auth.users-by-level')->withUsers(Auth::user()->getUsersByRefferalLevel($level))->withLevel($level);
     }
 
+    public function usersByLevelAdmin($user_id) {        
+        // if ($level>User::LEVEL_TEN || $level<User::LEVEL_ONE) {
+        //     return redirect()->route('user.home')->withFlashDanger(__('Invalid level, please select valid level.'));
+        // }
+        $user = User::findorFail($user_id); 
+        return view('auth.users-by-level-admin',compact('user'));
+        // ->withUsers(Auth::user()->getUsersByRefferalLevel($level))->withLevel($level);
+    }
+
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

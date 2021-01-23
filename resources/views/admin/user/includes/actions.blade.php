@@ -14,6 +14,7 @@
         <div class="dropdown-menu" aria-labelledby="userActions">
             {{-- <a href="{{ route('admin.user.delete', $user->id) }}" class="dropdown-item">@lang('Delete')</a> --}}
             <a href="{{ route('admin.payment.deposit', ['id'=>$user->id]) }}" class="dropdown-item">@lang('Deposit')</a>
+            <a href="{{ url('admin/user/level', ['id'=>$user->id]) }}" class="dropdown-item">@lang('Levels')</a>
         </div>
     </div>
 </div>
