@@ -15,10 +15,10 @@
             <div class="kt-portlet__head-toolbar">
                 <div class="kt-portlet__head-wrapper">
                     <div class="kt-portlet__head-actions" role="toolbar" aria-label="@lang('labels.general.toolbar_btn_groups')">
-                        {{-- <a href="{{ route('admin.user.create') }}" class="btn btn-brand btn-elevate btn-icon-sm" title="@lang('labels.general.create_new')">
+                        <a href="{{ route('admin.user.create') }}" class="btn btn-brand btn-elevate btn-icon-sm" title="@lang('labels.general.create_new')">
                             <i class="la la-plus"></i>
                             New User
-                        </a> --}}
+                        </a>
                     </div><!--btn-toolbar--> 
                 </div>
             </div>
