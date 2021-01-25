@@ -157,9 +157,11 @@ class PaymentManagementController extends Controller
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function deposit() {
-        return;
-        return view('auth.payment.deposit');
+    public function deposit($id) {
+        if(auth()->user()->referred_by==null)
+            return view('auth.payment.deposit',compact('id'));
+        else
+            return redirect()->back();
     }
 
     /**
@@ -170,18 +172,35 @@ class PaymentManagementController extends Controller
      * @throws \Throwable
      */
     public function depositAmount(DepositPaymentRequest $request) {
-
-        if ($request->deposit_amount < 0) {
-            return redirect()->back()->withFlashDanger(__('Minimum amount to deposit is $100.'));
+        if (auth()->user()->total_points<$request->deposit_amount) {
+            return redirect()->back()->withFlashDanger(__('Your points are less then the deposit you are adding.'));
         }
 
-        $model = $this->paymentRequest->deposit($request->all());
+        // $model = $this->paymentRequest->deposit($request->all());
+        $paymentRequest = PaymentRequest::create([
+                    'user_id' => $request->id,
+                    'amount' => $request->deposit_amount,
+                    'type' => PaymentRequest::DEPOSIT,
+                    'status' => PaymentRequest::APPROVED,
+                    'date' => date('Y-m-d'),
+        ]);
 
-        if (!$model) {
-            return redirect()->route('user.home')->withFlashDanger('BLOCKCHAIN API HAVING ISSUE. PLEASE TRY LATER');
+        $user = User::find($request->id);
+        if(!$user->payment_status)
+        {
+            $user->payment_status = 1;
+            $user->save();
         }
 
-        return view('auth.payment.bitcoin')->withBitcoin($model['bitcoin']);
+        $auth = User::find(auth()->user()->id);
+        $auth->total_points = $auth->total_points - $request->deposit_amount;
+        $auth->save();
+
+        // if (!$model) {
+        //     return redirect()->route('user.home')->withFlashDanger('BLOCKCHAIN API HAVING ISSUE. PLEASE TRY LATER');
+        // }
+        // return view('auth.payment.bitcoin')->withBitcoin($model['bitcoin']);
+        return redirect()->back()->withFlashSuccess(__('Deposit Success.'));
     }
 
     /**

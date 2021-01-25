@@ -40,16 +40,23 @@
                     </thead>
                     <tbody>
                         @foreach($users as $user)
-                        <tr>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->user_name }}</td>
-                            <td>{{ $user->email }}</td>
-                            <td>@include('admin.user.includes.active', ['user' => $user])</td>
-                            <td>{!! $user->roles_label !!}</td>
-                            <td>{{ $user->isCustomer() ? $user->totalDepositedAmount() : ''}}</td>
-                            <td>{{ $user->payment ? $user->payment->current_balance : '0' }}</td>
-                            <td>@include('admin.user.includes.actions', ['user' => $user])</td>
-                        </tr>
+                            @if($user->id!=1)
+                                <tr>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->user_name }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>@include('admin.user.includes.active', ['user' => $user])</td>
+                                    <td style="white-space: nowrap;">
+                                        {!! $user->roles_label !!}
+                                        @if($user->referred_by==null)
+                                            <span class="badge badge-success" style="cursor:pointer;">Merchent</span>
+                                        @endif
+                                    </td>
+                                    <td>{{ $user->isCustomer() ? $user->totalDepositedAmount() : ''}}</td>
+                                    <td>{{ $user->payment ? $user->payment->current_balance : '0' }}</td>
+                                    <td>@include('admin.user.includes.actions', ['user' => $user])</td>
+                                </tr>
+                            @endif
                         @endforeach
                     </tbody>
                 </table>

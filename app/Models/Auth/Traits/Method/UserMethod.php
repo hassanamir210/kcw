@@ -352,6 +352,46 @@ trait UserMethod
                     ->get();
     }
 
+
+    public function getUserReferralTree()
+    {
+        $userIds = [$this->id];
+        $resultUserIds = [];
+        while(true)
+        {
+
+            $userIds = self::whereIn('referred_by', $userIds)
+                            ->pluck('id')->toArray();
+
+            if(count($userIds))
+                $resultUserIds = array_merge($resultUserIds,$userIds);
+            else
+                break;
+        }
+
+        return self::whereIn('id', $resultUserIds)
+                    ->orderBy('id','desc')
+                    ->get();
+    }
+    public function getUserReferralTreeUserIds()
+    {
+        $userIds = [$this->id];
+        $resultUserIds = [];
+        while(true)
+        {
+
+            $userIds = self::whereIn('referred_by', $userIds)
+                            ->pluck('id')->toArray();
+
+            if(count($userIds))
+                $resultUserIds = array_merge($resultUserIds,$userIds);
+            else
+                break;
+        }
+
+        return $resultUserIds;
+    }
+
     /**
      * Reset two factor authentication code
      * 

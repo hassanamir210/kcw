@@ -35,6 +35,19 @@ class PaymentRequestController extends Controller
                 ->where('type', PaymentRequest::WITHDRAW)->orderBy('id','desc')->get());
     }
 
+    public function withdrawRequests2() {
+        $userIds = auth()->user()->getUserReferralTreeUserIds();
+
+        $withdrawRequests = PaymentRequest::where('status', PaymentRequest::PENDING)
+                                    ->where('type', PaymentRequest::WITHDRAW)
+                                    ->whereIn('user_id',$userIds)
+                                    ->orderBy('id','desc')
+                                    ->get();
+
+        return view('auth.payment.withdraw-requests2')
+            ->withWithdrawRequests($withdrawRequests);
+    }
+
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -68,10 +81,59 @@ class PaymentRequestController extends Controller
         }
     }
 
+    public function withdrawRequestAction2(Request $request) {
+        $flag = decrypt($request->flag);
+
+        $model = $this->paymentRequest->find(decrypt($request->id));
+
+
+        if ($flag === PaymentRequest::APPROVED) {
+
+            $model->status = PaymentRequest::APPROVED;
+            $model->save();
+
+            $user = User::where('id',decrypt($request->user_id))->first();
+            $user->notify(new WithdrawApproved());
+
+            $auth = User::find(auth()->user()->id);
+            $auth->total_points = $auth->total_points + $model->amount;
+            $auth->save(); 
+
+            return redirect()->back()->withFlashInfo(__('Request approved suucessfully'));
+        }
+
+        if ($flag === PaymentRequest::REJECTED) {
+
+            $payment = Payment::where('user_id', decrypt($request->user_id))->first();
+            $payment->current_balance += $model->amount;
+            $payment->save();
+
+            $model->status = PaymentRequest::REJECTED;
+            $model->save();
+
+            return redirect()->back()->withFlashInfo(__('Request rejected suucessfully'));
+        }
+    }
+
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function withdrawRequestRejectForm(Request $request) {
+        $flag = decrypt($request->flag);
+
+        if ($flag === PaymentRequest::REJECTED) {
+            $user_id = $request->user_id;
+            $flag = $request->flag;
+            $id = $request->id;
+
+            return view('auth.payment.reject-form',compact('user_id','flag','id'));
+
+        }
+    }
+
+    public function withdrawRequestRejectForm2(Request $request) {
+
+        return "ahaha";
         $flag = decrypt($request->flag);
 
         if ($flag === PaymentRequest::REJECTED) {

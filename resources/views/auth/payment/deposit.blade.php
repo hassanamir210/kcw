@@ -12,6 +12,7 @@
                     {!! Form::label('deposit_amount', 'Deposit Amount') !!}
                     {!! Form::number('deposit_amount', null, ['class' => 'form-control', 'required' => 'required', 'placeholder' => 'Please enter deposit amount']) !!}
                     <small class="text-danger">{{ $errors->first('deposit_amount') }}</small>
+                    <input type="hidden" name="id" value="{{$id}}">
                 </div>
             </div>
         </div><!--form-group-->

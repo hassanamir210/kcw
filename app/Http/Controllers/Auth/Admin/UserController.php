@@ -9,6 +9,7 @@ use App\Models\Auth\Role;
 use Illuminate\Http\Request;
 use App\Events\InviteRefferal;
 use App\Models\PaymentRequest;
+use App\Models\MerchentPointHistory;
 use App\Exceptions\GeneralException;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
@@ -197,6 +198,13 @@ class UserController extends Controller
                     'date' => date('Y-m-d'),
                 ]);
 
+                $user = User::find($request->id);
+                if(!$user->payment_status)
+                {
+                    $user->payment_status = 1;
+                    $user->save();
+                }
+
             } catch (Exception $e) {
                 \DB::rollBack();
                 throw new GeneralException(__('There was a problem while depositing this amount. Please try again.'));
@@ -204,6 +212,44 @@ class UserController extends Controller
             \DB::commit();
 
         return redirect()->route('admin.user.index')->withFlashSuccess(__('The payment was deposited successfully.'));
+    }
+
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function point(Request $request) {
+        return view('admin.point')->withId($request->id);
+    }
+
+     /**
+     * @param  DepositPaymentRequest  $request
+     *
+     * @return mixed
+     * @throws \App\Exceptions\GeneralException
+     * @throws \Throwable
+     */
+    public function pointAmount(Request $request) {
+        \DB::beginTransaction();
+
+            try {
+
+                $pointHistory = MerchentPointHistory::create([
+                    'user_id' => decrypt($request->id),
+                    'point' => $request->points,
+                ]);
+
+                $user = User::find(decrypt($request->id));                
+                $user->total_points =  $user->total_points + $request->points;
+                $user->save();
+
+            } catch (Exception $e) {
+                \DB::rollBack();
+                throw new GeneralException(__('There was a problem while adding the points. Please try again.'));
+            }
+            \DB::commit();
+
+        return redirect()->route('admin.user.index')->withFlashSuccess(__('The points were added successfully.'));
     }
 
     
@@ -237,5 +283,10 @@ class UserController extends Controller
 
         event(new InviteRefferal($request->email));
         return redirect()->route('user.home')->withFlashSuccess(__('Refferal invitation sent successfully.'));
+    }
+
+    public function merchentUsersList()
+    {
+        return view('auth.merchent-users');
     }
 }

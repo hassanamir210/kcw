@@ -7,6 +7,22 @@
 		<p class="marquee marquee2 sliding-notification">
 			<span>{{ $notificationText }} -&nbsp;</span>
 		</p>
+		@if(auth()->user()->referredBy==null)
+			<div class="row mt-5">
+				<div class="col-sm-12 col-md-12 col-xl-12">
+					<!--begin::Stats Widget 13-->
+					<a href="javascript::void(0)" class="card card-custom bg-danger bg-hover-state-danger card-stretch gutter-b daily-background">
+						<!--begin::Body-->
+						<div class="card-body">
+							<div class="text-inverse-white font-weight-bolder font-25 font-size-h5 mb-2 mt-5 text-center">Total Points</div>
+							<div class="font-weight-bold text-inverse-white text-center font-23">{{ auth()->user()->total_points }}</div>
+						</div>
+						<!--end::Body-->
+					</a>
+					<!--end::Stats Widget 13-->
+				</div>
+			</div>
+		@endif
 		<div class="row mt-5">
 			<div class="col-sm-12 col-md-12 col-xl-12">
 				<!--begin::Stats Widget 13-->
@@ -181,12 +197,14 @@
 				<!--end::Stats Widget 13-->
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-lg-12 col-xl-12 order-lg-1 order-xl-1 mt-5">
-				<h4>Refferal Link<h4/>
-				<input type="text" class="form-control mb-5" readonly value="{{ url('/register') . '?ref=' . encrypt(auth()->user()->id) }}">
+		@if(auth()->user()->payment_status)
+			<div class="row">
+				<div class="col-lg-12 col-xl-12 order-lg-1 order-xl-1 mt-5">
+					<h4>Referral Link<h4/>
+					<input type="text" class="form-control mb-5" readonly value="{{ url('/register') . '?ref=' . encrypt(auth()->user()->id) }}">
+				</div>
 			</div>
-		</div>
+		@endif
 		{{-- <div class="row pull-right">
 			<div class="container">
 			<button class="btn btn-danger" data-toggle="modal" data-target="#myModal">Refund Amount</button>

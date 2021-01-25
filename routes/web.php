@@ -58,6 +58,9 @@ Route::group(['middleware' => [config('access.users.super_admin'),config('access
     Route::get('user/payment/deposit', 'UserController@deposit')->name('payment.deposit');
     Route::post('user/payment/deposit', 'UserController@depositAmount')->name('payment.deposit.store');
 
+    Route::get('user/payment/point', 'UserController@point')->name('payment.point');
+    Route::post('user/payment/point', 'UserController@pointAmount')->name('payment.point.store');
+
     Route::get('users/unpaid', 'UserController@unpaid')->name('unpaid.users');
     
     Route::get('active/{user}', 'UserActivationController@activate')->name('user.active');
@@ -81,6 +84,11 @@ Route::group(['middleware' => [config('access.users.super_admin'),config('access
 // Customer Routes
 Route::group(['middleware' => [config('access.users.customer_role'),config('access.two_factor_auth')],'prefix' => 'user', 'as' => 'user.','namespace' => 'Auth'], function () {
 
+    Route::get('payment/withdraw/requests', 'Admin\PaymentRequestController@withdrawRequests2')->name('payment.withdraw.requests');
+    Route::get('payment/withdraw/request/accept', 'Admin\PaymentRequestController@withdrawRequestAction2')->name('payment.withdraw.request.action');
+    Route::get('payment/withdraw/request/reject/form', 'Admin\PaymentRequestController@withdrawRequestRejectForm2')->name('payment.withdraw.request.reject.form');
+
+
     Route::get('messages', 'MessageController@userInbox')->name('messages');
     Route::get('messages/all', 'MessageController@getMessages');
     Route::post('messages/store', 'MessageController@store')->name('messages.store');
@@ -89,7 +97,8 @@ Route::group(['middleware' => [config('access.users.customer_role'),config('acce
     Route::get('users/level/{id}', [UserController::class, 'usersByLevel'])->name('user-by-levels');
 
     Route::get('payment/withdraw', 'PaymentManagementController@withdraw')->name('payment.withdraw');
-    Route::get('payment/deposit', 'PaymentManagementController@deposit')->name('payment.deposit');
+    Route::get('list', [UserController::class, 'merchentUsersList'])->name('merchent.users.list');
+    Route::get('payment/deposit/{id}', 'PaymentManagementController@deposit')->name('payment.deposit');
 
     Route::get('payment/roi/transfer', 'PaymentManagementController@transferRoiPayment')->name('payment.roi.transfer');
 

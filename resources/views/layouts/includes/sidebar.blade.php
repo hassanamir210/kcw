@@ -79,7 +79,12 @@
                 </li>
                 @endcan
                 @can('payment management')
-                <!--<li class="kt-menu__item" aria-haspopup="true"><a href="{{ route('user.payment.deposit') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text font-17">Deposit</span><span class="kt-menu__link-badge"></a></li>-->
+                {{-- <li class="kt-menu__item" aria-haspopup="true"><a href="{{ route('user.payment.deposit') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text font-17">Deposit</span><span class="kt-menu__link-badge"></a></li> --}}
+                @if(auth()->user()->referred_by==null)
+                    <li class="kt-menu__item" aria-haspopup="true"><a href="{{ route('user.merchent.users.list') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text font-17">Users</span><span class="kt-menu__link-badge"></a></li>
+                @endif
+                <li class="kt-menu__item" aria-haspopup="true"><a href="{{ route('user.payment.withdraw.requests') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text font-17">Withdraw Requests</span><span class="kt-menu__link-badge"></a></li>
+
                 <li class="kt-menu__item" aria-haspopup="true"><a href="{{ route('user.payment.withdraw') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text font-17">Withdraw</span><span class="kt-menu__link-badge"></a></li>
                 <li class="kt-menu__item" aria-haspopup="true"><a href="{{ route('user.target') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text font-17">Target</span><span class="kt-menu__link-badge"></a></li>
                 <li class="kt-menu__item" aria-haspopup="true"><a href="{{ route('user.invite.refferal.index') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text font-17">Invite User</span><span class="kt-menu__link-badge"></a></li>
