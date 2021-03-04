@@ -154,7 +154,7 @@ class UserController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function usersByLevel($level) {        
-        if ($level>User::LEVEL_TEN || $level<User::LEVEL_ONE) {
+        if ($level>User::LEVEL_TWENTYFIVE || $level<User::LEVEL_ONE) {
             return redirect()->route('user.home')->withFlashDanger(__('Invalid level, please select valid level.'));
         }
 
