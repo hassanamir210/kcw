@@ -23,7 +23,7 @@
                             <th>@lang('Date')</th>
                             <th>@lang('Amount')</th>
                             <th>@lang('Type')</th>
-                            <th>@lang('By')</th>
+                            <th>@lang('Transaction By')</th>
                         </tr>
                     </thead>
                     <tbody>

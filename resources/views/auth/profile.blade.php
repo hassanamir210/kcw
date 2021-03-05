@@ -89,7 +89,7 @@
                 <div class="col-md-12">
                     <label for="id_front_image" class="col-md-6 col-form-label">@lang('ID Front Image')</label>
                     @if($user->id_front_image!=null)
-                    <img src="{{url('storage/app/public/images/'.$user->id_front_image)}}" style="    width: 100%;">
+                    <img src="{{url('storage/app/public/images/'.$user->id_front_image)}}" style="    width: 100%;height: 260px;">
                     @endif
                     <input id="id_front_image" type="file" class="form-control @error('id_front_image') is-invalid @enderror" name="id_front_image" value="{{ $user->id_front_image }}" autocomplete="name" autofocus>
                     @error('id_front_image')
@@ -101,7 +101,7 @@
                 <div class="col-md-12">
                     <label for="id_back_image" class="col-md-6 col-form-label">@lang('ID Back Image')</label>
                     @if($user->id_back_image!=null)
-                    <img src="{{url('storage/app/public/images/'.$user->id_back_image)}}" style="    width: 100%;">
+                    <img src="{{url('storage/app/public/images/'.$user->id_back_image)}}" style="    width: 100%;height: 260px;">
                     @endif
                     <input id="id_back_image" type="file" class="form-control @error('id_back_image') is-invalid @enderror" name="id_back_image" value="{{ $user->id_back_image }}" autocomplete="name" autofocus>
                     @error('id_back_image')
@@ -117,7 +117,7 @@
                 <div class="col-md-12">
                     <label for="passport_front_image" class="col-md-6 col-form-label">@lang('Passport Front Image')</label>
                     @if($user->passport_front_image!=null)
-                    <img src="{{url('storage/app/public/images/'.$user->passport_front_image)}}" style="    width: 100%;">
+                    <img src="{{url('storage/app/public/images/'.$user->passport_front_image)}}" style="    width: 100%;height: 260px;">
                     @endif
                     <input id="passport_front_image" type="file" class="form-control @error('passport_front_image') is-invalid @enderror" name="passport_front_image" value="{{ $user->passport_front_image }}" autocomplete="name" autofocus>
                     @error('passport_front_image')
@@ -129,7 +129,7 @@
                 <div class="col-md-12">
                     <label for="passport_back_image" class="col-md-6 col-form-label">@lang('Passport Back Image')</label>
                     @if($user->passport_back_image!=null)
-                    <img src="{{url('storage/app/public/images/'.$user->passport_back_image)}}" style="    width: 100%;">
+                    <img src="{{url('storage/app/public/images/'.$user->passport_back_image)}}" style="    width: 100%;height: 260px;">
                     @endif
                     <input id="passport_back_image" type="file" class="form-control @error('passport_back_image') is-invalid @enderror" name="passport_back_image" value="{{ $user->passport_back_image }}" autocomplete="name" autofocus>
                     @error('passport_back_image')

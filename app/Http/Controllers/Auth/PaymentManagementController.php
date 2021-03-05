@@ -137,6 +137,9 @@ class PaymentManagementController extends Controller
             return redirect('profile/'.auth()->user()->id.'/edit')->withFlashDanger(__('You must provide your BTC address to proccess your withdraw.'));
         }
 
+        if ($user->id_front_image == null || $user->id_back_image == null || $user->passport_front_image == null || $user->passport_back_image == null) {
+            return redirect()->back()->withFlashDanger(__('You must upload all images in profile before this operation'));
+        }
         if ($user->payment->current_balance == Payment::DEFAULT_BALANCE_ZERO) {
             return redirect()->back()->withFlashDanger(__('You do not have any balance to withdraw.'));
         }
@@ -144,6 +147,7 @@ class PaymentManagementController extends Controller
         if ($request->withdraw_amount > $user->payment->current_balance) {
             return redirect()->back()->withFlashDanger(__('You cannot withdraw amount greater then your current amount.'));
         }
+
 
         $user->generateWithdrawTwoFactorCode();
         
