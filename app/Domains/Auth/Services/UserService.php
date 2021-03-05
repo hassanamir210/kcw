@@ -181,10 +181,21 @@ class UserService extends BaseService
         $user->last_name = $data['last_name'] ?? null;
         $user->block_chain_address = $data['block_chain_address'] ?? null;
 
+        if(isset($data['id_front_image_name']))
+            $user->id_front_image = $data['id_front_image_name'] ?? null;
+        if(isset($data['id_back_image_name']))
+            $user->id_back_image = $data['id_back_image_name'] ?? null;
+        if(isset($data['passport_front_image_name']))
+            $user->passport_front_image = $data['passport_front_image_name'] ?? null;
+        if(isset($data['passport_back_image_name']))
+            $user->passport_back_image = $data['passport_back_image_name'] ?? null;
+
         $user->profile->mobile_number = $data['mobile_number'] ?? null;
         $user->profile->street = $data['street'] ?? null;
         $user->profile->city = $data['city'] ?? null;
         $user->profile->post_code = $data['post_code'] ?? null;
+
+
 
         $user->profile->save();
 

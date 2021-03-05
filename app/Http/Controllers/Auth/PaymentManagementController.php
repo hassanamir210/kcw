@@ -183,6 +183,7 @@ class PaymentManagementController extends Controller
                     'type' => PaymentRequest::DEPOSIT,
                     'status' => PaymentRequest::APPROVED,
                     'date' => date('Y-m-d'),
+                    'transaction_by'=> 'Merchent'
         ]);
 
         $user = User::find($request->id);

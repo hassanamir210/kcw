@@ -23,6 +23,7 @@
                             <th>@lang('Date')</th>
                             <th>@lang('Amount')</th>
                             <th>@lang('Type')</th>
+                            <th>@lang('By')</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,6 +39,7 @@
 
                                 @endif
                             </td>
+                            <td>{{$request->transaction_by}}</td>
                         </tr>
                         @endforeach
                     </tbody>

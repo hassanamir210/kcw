@@ -35,7 +35,7 @@ class PaymentRequest extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id','amount','date','type','status','subType'];
+    protected $fillable = ['user_id','amount','date','type','status','subType','transaction_by'];
 
     /**
      * @return string

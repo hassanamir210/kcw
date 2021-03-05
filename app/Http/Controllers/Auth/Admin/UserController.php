@@ -185,9 +185,7 @@ class UserController extends Controller
      * @throws \Throwable
      */
     public function depositAmount(DepositPaymentRequest $request) {
-
         \DB::beginTransaction();
-
             try {
 
                 $paymentRequest = PaymentRequest::create([
@@ -196,9 +194,10 @@ class UserController extends Controller
                     'type' => PaymentRequest::DEPOSIT,
                     'status' => PaymentRequest::APPROVED,
                     'date' => date('Y-m-d'),
+                    'transaction_by'=> 'Admin'
                 ]);
 
-                $user = User::find($request->id);
+                $user = User::find(decrypt($request->id));
                 if(!$user->payment_status)
                 {
                     $user->payment_status = 1;

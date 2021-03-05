@@ -28,8 +28,39 @@ class ProfileController extends Controller
      */
     public function update(UpdateProfileRequest $request, UserService $userService)
     {
+
         $logged_in_user = Auth::user();
 
+
+        if(isset($request['id_front_image']))
+        {
+            $imageName = time().'.'.$request->id_front_image->extension();  
+            $request->id_front_image->move(storage_path('app/public/images'), $imageName);   
+            $request['id_front_image_name'] = $imageName;
+        }
+
+        if(isset($request['id_back_image']))
+        {
+            $imageName = time().'.'.$request->id_back_image->extension();  
+            $request->id_back_image->move(storage_path('app/public/images'), $imageName);   
+            $request['id_back_image_name'] = $imageName; 
+        }
+
+        if(isset($request['passport_front_image']))
+        {
+            $imageName = time().'.'.$request->passport_front_image->extension();  
+            $request->passport_front_image->move(storage_path('app/public/images'), $imageName); 
+            $request['passport_front_image_name'] = $imageName; 
+
+        }
+
+        if(isset($request['passport_back_image']))
+        {
+            $imageName = time().'.'.$request->passport_back_image->extension();  
+            $request->passport_back_image->move(storage_path('app/public/images'), $imageName); 
+            $request['passport_back_image_name'] = $imageName; 
+
+        }
         $userService->updateProfile($request->user(), $request->all());
 
         if ($logged_in_user->isAdmin()) {

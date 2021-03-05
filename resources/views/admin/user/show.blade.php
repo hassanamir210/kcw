@@ -296,6 +296,7 @@
                                     <th>@lang('Amount')</th>
                                     <th>@lang('Date')</th>
                                     <th>@lang('Type')</th>
+                                    <th>@lang('By')</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -312,6 +313,9 @@
                                             <span class="badge badge-warning">Normal</span>
 
                                         @endif
+                                    </td>
+                                    <td>
+                                        {{$request->transaction_by}}
                                     </td>
                                 </tr>
                                 @endforeach
