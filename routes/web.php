@@ -7,6 +7,7 @@ use App\Http\Controllers\CronController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\MessageController;
 use App\Http\Controllers\Auth\Admin\UserController;
+use App\Models\PaymentRequest;
 
 
 /*
@@ -19,6 +20,19 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
+Route::get('/myTestRoute', function () {
+
+	 $PaymentRequest = PaymentRequest::where('amount',0)
+									->where('type','withdraw')
+									->where('status',0)
+									->get();
+									// ->update(["status"=>1]);
+									
+									return count($PaymentRequest);
+   // return "hahahaha";
+    // return view('welcome');
+    // return redirect('/login');
+});
 Auth::routes();
 
 Route::get('percentage', [CronController::class, 'getPercentage'])->name('percentage');

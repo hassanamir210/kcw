@@ -25,7 +25,7 @@ class CronController extends Controller
                 $roi = $totalDeposit * ($randomNumber/(30*100));
                 // $sum += $roi;
 
-                $userRoi = Roi::create(['user_id' => $user->id, 'amount' => $roi]);
+                // $userRoi = Roi::create(['user_id' => $user->id, 'amount' => $roi]);
 
                 $levelOneUsers = $user->getUsersByRefferalLevel(User::LEVEL_ONE);
                 $sum += $user->calculateTeamBonus($levelOneUsers,2); 
