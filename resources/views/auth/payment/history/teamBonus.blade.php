@@ -12,7 +12,7 @@
                 </h3>
             </div>
             <div class="float-right">
-                <small class="text-muted font-17">Total Team Bonus: <b>${{ auth()->user()->getTeamBonus() }}</b></small><br>
+                <small class="text-muted font-17">Total Team Bonus: <b>PKR {{ auth()->user()->getTeamBonus() }}</b></small><br>
             </div>
         </div>
         <div class="kt-portlet__body">
@@ -32,7 +32,7 @@
                             <td>{{ Carbon\Carbon::parse($request->created_at)->format('Y-m-d') }}</td>
                             <td>{{$request->fromUser->name}}</td>
                             <td>{{$request->fromUser->user_name}}</td>
-                            <td><span class="badge badge-primary">${{ $request->amount }}</span></td>
+                            <td><span class="badge badge-primary">PKR {{ $request->amount }}</span></td>
                         </tr>
                         @endforeach
                     </tbody>

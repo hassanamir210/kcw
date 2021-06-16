@@ -12,7 +12,7 @@
                 </h3>
             </div>
             <div class="float-right">
-                <small class="text-muted font-17">Total: <b>${{$withdrawRequests->sum('amount')}}</b></small><br>
+                <small class="text-muted font-17">Total: <b>PKR {{$withdrawRequests->sum('amount')}}</b></small><br>
             </div>
         </div>
         <div class="kt-portlet__body">
@@ -36,8 +36,8 @@
                             <td>{{ $request->user->name }}</td>
                             <td>{{ $request->user->user_name }}</td>
                             <td>{{ $request->user->email }}</td>
-                            <td>${{ $request->amount }}</td>
-                            <td>${{ $request->user->block_chain_address }}</td>
+                            <td>PKR {{ $request->amount }}</td>
+                            <td>PKR {{ $request->user->block_chain_address }}</td>
                             <td>{{ $request->date }}</td>
                             <td>{!! $request->status_label !!}</td>
                             <td>

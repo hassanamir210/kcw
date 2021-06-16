@@ -91,7 +91,7 @@
                             <!--begin::Body-->
                             <div class="card-body">
                                 <div class="text-inverse-white font-weight-bolder font-25 font-size-h5 mb-2 mt-5 text-center">Current Balance</div>
-                                <div class="font-weight-bold text-inverse-white text-center font-23">${{ $user->payment ? $user->payment->current_balance : '0' }}</div>
+                                <div class="font-weight-bold text-inverse-white text-center font-23">PKR {{ $user->payment ? $user->payment->current_balance : '0' }}</div>
                             </div>
                             <!--end::Body-->
                         </a>
@@ -118,7 +118,7 @@
                                     <!--end::Svg Icon-->
                                 </span>
                                 <div class="text-inverse-white font-weight-bolder font-25 font-size-h5 mb-2 mt-5">Daily ROI</div>
-                                <div class="font-weight-bold text-inverse-white font-23">${{ $user->getDailyRoi() }}
+                                <div class="font-weight-bold text-inverse-white font-23">PKR {{ $user->getDailyRoi() }}
                                 </div>
                                 
                             </div>
@@ -143,7 +143,7 @@
                                     <!--end::Svg Icon-->
                                 </span>
                                 <div class="text-inverse-white font-weight-bolder font-25 font-size-h5 mb-2 mt-5">Daily Team Bonus</div>
-                                <div class="font-weight-bold text-inverse-white font-23">${{ $user->getDailyTeamBonus() }}
+                                <div class="font-weight-bold text-inverse-white font-23">PKR {{ $user->getDailyTeamBonus() }}
                                 </div>
                             </div>
                             <!--end::Body-->
@@ -171,7 +171,7 @@
                                     <!--end::Svg Icon-->
                                 </span>
                                 <div class="text-inverse-white font-weight-bolder font-25 font-size-h5 mb-2 mt-5">Total ROI</div>
-                                <div class="font-weight-bold text-inverse-white font-23">${{ $user->getTotalRoi() }}</div>
+                                <div class="font-weight-bold text-inverse-white font-23">PKR {{ $user->getTotalRoi() }}</div>
                             </div>
                             <!--end::Body-->
                         </a>
@@ -194,7 +194,7 @@
                                     <!--end::Svg Icon-->
                                 </span>
                                 <div class="text-inverse-white font-weight-bolder font-25 font-size-h5 mb-2 mt-5">Total Team Bonus</div>
-                                <div class="font-weight-bold text-inverse-white font-23">${{ $user->getTeamBonus() }}</div>
+                                <div class="font-weight-bold text-inverse-white font-23">PKR {{ $user->getTeamBonus() }}</div>
                             </div>
                             <!--end::Body-->
                         </a>
@@ -219,7 +219,7 @@
                                     <!--end::Svg Icon-->
                                 </span>
                                 <div class="text-inverse-white font-weight-bolder font-25 font-size-h5 mb-2 mt-5">Total Deposit</div>
-                                <div class="font-weight-bold text-inverse-white font-23">${{ $user->totalDeposit() }}</div>
+                                <div class="font-weight-bold text-inverse-white font-23">PKR {{ $user->totalDeposit() }}</div>
                             </div>
                             <!--end::Body-->
                         </a>
@@ -242,7 +242,7 @@
                                     <!--end::Svg Icon-->
                                 </span>
                                 <div class="text-inverse-white font-weight-bolder font-25 font-size-h5 mb-2 mt-5">Total Withdraw</div>
-                                <div class="font-weight-bold text-inverse-white font-23">${{ $user->totalWithdraw() }}</div>
+                                <div class="font-weight-bold text-inverse-white font-23">PKR {{ $user->totalWithdraw() }}</div>
                             </div>
                             <!--end::Body-->
                         </a>
@@ -253,7 +253,7 @@
                 <div class="kt-portlet">
                     <div class="kt-portlet__body">
                         <h4 style="color:blue">Withdraw Requests</h4>
-                        <h5 class="pull-right">Total Withdraw: ${{ $user->isCustomer() ? $user->totalWithdraw() : ''}}</h5><hr>
+                        <h5 class="pull-right">Total Withdraw: PKR {{ $user->isCustomer() ? $user->totalWithdraw() : ''}}</h5><hr>
                         <table id="abc" class="table table-striped- table-bordered table-hover table-checkable display table-admin_tables">
                             <thead>
                                 <tr>
@@ -276,7 +276,7 @@
                                             <a href="{{ route('admin.payment.withdraw.request.reject.form', ['flag'=>encrypt(2),'id'=>encrypt($request->id),'user_id'=>encrypt($request->user->id)]) }}" class="btn btn-danger btn-sm" data-toggle="tooltip" title="View">Reject</a>
                                         </div>
                                         @else
-                                            N/A
+                                        N/A
                                         @endif
                                     </td>
                                 </tr>
@@ -288,7 +288,7 @@
                 <div class="kt-portlet">
                     <div class="kt-portlet__body">
                         <h4 style="color:blue">Deposit Requests</h4>
-                        <h5 class="pull-right">Total Deposit: ${{ $user->isCustomer() ? $user->totalDepositedAmount() : ''}}</h5>
+                        <h5 class="pull-right">Total Deposit: PKR {{ $user->isCustomer() ? $user->totalDepositedAmount() : ''}}</h5>
                         <hr>
                         <table id="abc" class="table table-striped- table-bordered table-hover table-checkable display table-admin_tables">
                             <thead>
@@ -300,29 +300,29 @@
                             </thead>
                             <tbody>
                                 @foreach($paymentRequests
-                                            ->where('type',"deposit")
-                                            ->where('status',1) as $request)
-                                <tr>
-                                    <td>{{ $request->date }}</td>
-                                    <td>{{ $request->amount }}</td>
-                                    <td>
-                                        @if($request->subType==1)
+                                    ->where('type',"deposit")
+                                    ->where('status',1) as $request)
+                                    <tr>
+                                        <td>{{ $request->date }}</td>
+                                        <td>{{ $request->amount }}</td>
+                                        <td>
+                                            @if($request->subType==1)
                                             <span class="badge badge-success">Reinvested</badge> 
-                                        @else
-                                            <span class="badge badge-warning">Normal</span>
+                                                @else
+                                                <span class="badge badge-warning">Normal</span>
 
-                                        @endif
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
+                    <a href="{{ route('admin.user.index') }}" class="btn btn-sm btn-primary" type="submit">@lang('Bsck to List')</a>
                 </div>
             </div>
-            <a href="{{ route('admin.user.index') }}" class="btn btn-sm btn-primary" type="submit">@lang('Bsck to List')</a>
         </div>
-    </div>
-</div>
-<!-- end:: Content -->
-@endsection
+        <!-- end:: Content -->
+        @endsection

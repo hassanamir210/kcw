@@ -12,7 +12,7 @@
                 </h3>
             </div>
             <div class="float-right">
-                <small class="text-muted font-17">Total Deposit: <b>${{ auth()->user()->totalDeposit() }}</b></small><br>
+                <small class="text-muted font-17">Total Deposit: <b>PKR {{ auth()->user()->totalDeposit() }}</b></small><br>
             </div>
         </div>
         <div class="kt-portlet__body">
@@ -29,25 +29,25 @@
                         @foreach($paymentRequests as $request)
                         <tr>
                             <td>{{ $request->date }}</td>
-                            <td><span class="badge badge-primary">${{ $request->amount }}</span></td>
+                            <td><span class="badge badge-primary">PKR {{ $request->amount }}</span></td>
                             <td>
                                 @if($request->subType==1)
-                                    <span class="badge badge-success">Reinvested</badge> 
-                                @else
+                                <span class="badge badge-success">Reinvested</badge> 
+                                    @else
                                     <span class="badge badge-warning">Normal</span>
 
-                                @endif
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-            <div class="pagination" style="margin-left:auto">
-                {{-- {{ $users->links() }} --}}
+                                    @endif
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination" style="margin-left:auto">
+                    {{-- {{ $users->links() }} --}}
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!-- end:: Content -->
-@endsection
+    <!-- end:: Content -->
+    @endsection

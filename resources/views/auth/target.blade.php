@@ -11,7 +11,7 @@
                 <small class="text-muted font-17" >20 August - 31 December</small>
             </div>
             <div class="pull-right" style="margin-top:10px">
-                <small class="text-muted font-17" >Total Investment <b>${{$sum}}</b></small>
+                <small class="text-muted font-17" >Total Investment <b>PKR {{$sum}}</b></small>
             </div>
         </div>
         <div class="kt-portlet__body">
@@ -33,7 +33,7 @@
                             <td>{{ $user->user_name }}</td>
                             <td>{{ $user->name }}</td>
                             <td><span class="badge badge-success">{{ $user->email }}</span></td>
-                            <td><span class="badge badge-primary">${{ $user->totalDeposit() }}</span></td>
+                            <td><span class="badge badge-primary">PKR {{ $user->totalDeposit() }}</span></td>
                         </tr>
                         @endforeach
                     </tbody>

@@ -13,7 +13,7 @@
                 </h3>
             </div>
             <div class="float-right">
-                <small class="text-muted font-17">Sum of Bonus <b>${{ auth()->user()->getTeamBonusByUsersLevel($level) }}</b></small><br>
+                <small class="text-muted font-17">Sum of Bonus <b>PKR {{ auth()->user()->getTeamBonusByUsersLevel($level) }}</b></small><br>
                 {{-- <small class="text-muted">Daily Bonus <b>{{ auth()->user()->getRefferalLevelPercentage($level) }}</b></small> --}}
             </div>
         </div>
@@ -38,7 +38,7 @@
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->originalReffereName($user->original_reffered_by) }}</td>
                             <td><span class="badge badge-success">{{ $user->email }}</span></td>
-                            <td><span class="badge badge-primary">${{ $user->totalDeposit() }}</span></td>
+                            <td><span class="badge badge-primary">PKR {{ $user->totalDeposit() }}</span></td>
                         </tr>
                         @endforeach
                     </tbody>
