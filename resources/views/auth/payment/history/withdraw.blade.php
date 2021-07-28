@@ -31,7 +31,7 @@
                         <tr>
                             <td>{{ $request->date }}</td>
                             <td>PKR {{ $request->amount }}</td>
-                            <td>123456</td>
+                            <td>*****</td>
                             <td>{!! $request->status_label !!}</td>
                         </tr>
                         @endforeach

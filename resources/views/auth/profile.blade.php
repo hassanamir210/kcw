@@ -75,7 +75,7 @@
             <div class="form-group row">
                 
                 <div class="col-md-6">
-                    <label for="block_chain_address" class="col-md-2 col-form-label">@lang('Block Chain Address')</label>
+                    <label for="block_chain_address" class="col-md-2 col-form-label">@lang('Bank Account Detail')</label>
                     <input id="block_chain_address" type="text" class="form-control @error('block_chain_address') is-invalid @enderror" name="block_chain_address" value="{{ $user->block_chain_address }}" autocomplete="name" autofocus>
                     @error('block_chain_address')
                         <span class="invalid-feedback" role="alert">

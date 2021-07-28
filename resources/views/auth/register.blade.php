@@ -72,9 +72,9 @@
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-6">
-                    <div class="wrap-input100 validate-input" data-validate = "Enter BTC Address">
+                    <div class="wrap-input100 validate-input" data-validate = "Enter Bank Address">
                         <input autofocus for="btc_address" id="btc_address" type="text" placeholder="" class="input100 @error('btc_address') is-invalid @enderror" name="btc_address" value="{{ old('btc_address') }}" required autocomplete="fasle">
-                        <span class="focus-input100" data-placeholder="BTC Address"></span>
+                        <span class="focus-input100" data-placeholder="Bank Address"></span>
                     </div>
                 </div>
             </div>

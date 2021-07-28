@@ -279,23 +279,23 @@ trait UserMethod
 
         switch ($level) {
             case self::LEVEL_ONE:
-                return '2%';
+                return '0.25%';
             break;
 
             case self::LEVEL_TWO:
-                return '1.5%';
+                return '0.25%';
             break;
 
             case self::LEVEL_THREE:
-                return '1%';
+                return '0.25%';
             break;
 
             case self::LEVEL_FOUR:
-                return '0.75%';
+                return '0.25%';
             break;
 
             case self::LEVEL_FIVE:
-                return '0.5%';
+                return '0.25%';
             break;
 
             case self::LEVEL_SIX:

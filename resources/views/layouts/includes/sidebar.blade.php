@@ -3,7 +3,7 @@
     <div class="kt-aside__brand kt-grid__item " id="kt_aside_brand">
         <div class="kt-aside__brand-logo">
             <a href="index.html">
-                {{-- <img alt="Logo" src="{{ asset('assets/media/logos/logo-light.png') }}" /> --}}
+               <img alt="Logo" src="https://kcw.global/wp-content/uploads/2021/06/logo.png" />
                 KCW
             </a>
         </div>
@@ -33,7 +33,7 @@
     <div class="kt-aside-menu-wrapper kt-grid__item kt-grid__item--fluid" id="kt_aside_menu_wrapper">
         <div id="kt_aside_menu" class="kt-aside-menu " data-ktmenu-vertical="1" data-ktmenu-scroll="1" data-ktmenu-dropdown-timeout="500">
             <div class="btc-rate-position">
-                <p><strong>BTC Rate</strong>: PKR {{ CurrentBtcRate() }}</p>
+                <!--<p><strong>BTC Rate</strong>: PKR {{ CurrentBtcRate() }}</p>-->
             </div>
             <ul class="kt-menu__nav ">
                 <li class="kt-menu__item {{ active_class(request()->is('admin/home')) }}" aria-haspopup="true"><a href="{{ auth()->user()->isAdmin() ? route('admin.home') : route('user.home') }}" class="kt-menu__link "><span class="kt-menu__link-icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">

@@ -10,3 +10,6 @@
 [06-Dec-2020 21:08:52 UTC] PHP Parse error:  syntax error, unexpected ':', expecting '{' in /home/buggsfcs/kcw.global/kcw/vendor/symfony/polyfill-php80/bootstrap.php on line 23
 [06-Dec-2020 21:08:52 UTC] PHP Parse error:  syntax error, unexpected ':', expecting '{' in /home/buggsfcs/kcw.global/kcw/vendor/symfony/polyfill-php80/bootstrap.php on line 23
 [06-Dec-2020 21:09:05 UTC] PHP Parse error:  syntax error, unexpected ':', expecting '{' in /home/buggsfcs/kcw.global/kcw/vendor/symfony/polyfill-php80/bootstrap.php on line 23
+[18-Jul-2021 16:19:40 UTC] PHP Fatal error:  Allowed memory size of 1073741824 bytes exhausted (tried to allocate 6198219640 bytes) in /home/buggsfcs/kcw.global/kcw/vendor/facade/ignition/src/Solutions/MakeViewVariableOptionalSolution.php on line 75
+[22-Jul-2021 08:13:34 UTC] PHP Fatal error:  Allowed memory size of 1073741824 bytes exhausted (tried to allocate 6199518712 bytes) in /home/buggsfcs/kcw.global/kcw/vendor/facade/ignition/src/Solutions/MakeViewVariableOptionalSolution.php on line 75
+[27-Jul-2021 21:43:42 UTC] PHP Fatal error:  Allowed memory size of 1073741824 bytes exhausted (tried to allocate 6199820000 bytes) in /home/buggsfcs/kcw.global/kcw/vendor/facade/ignition/src/Solutions/MakeViewVariableOptionalSolution.php on line 75

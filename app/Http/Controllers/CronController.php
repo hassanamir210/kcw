@@ -26,35 +26,35 @@ class CronController extends Controller
 
                 $userRoi = Roi::create(['user_id' => $user->id, 'amount' => $roi]);
 
-                // $levelOneUsers = $user->getUsersByRefferalLevel(User::LEVEL_ONE);
-                // $sum += $user->calculateTeamBonus($levelOneUsers,2); 
+                $levelOneUsers = $user->getUsersByRefferalLevel(User::LEVEL_ONE);
+                $sum += $user->calculateTeamBonus($levelOneUsers,0.25); 
 
-                // $leveltWOUsers = $user->getUsersByRefferalLevel(User::LEVEL_TWO);
-                // $sum += $user->calculateTeamBonus($leveltWOUsers,1.5); 
+                $leveltWOUsers = $user->getUsersByRefferalLevel(User::LEVEL_TWO);
+                $sum += $user->calculateTeamBonus($leveltWOUsers,0.25); 
 
-                // $levelThreeUsers = $user->getUsersByRefferalLevel(User::LEVEL_THREE);
-                // $sum += $user->calculateTeamBonus($levelThreeUsers,1);
+                $levelThreeUsers = $user->getUsersByRefferalLevel(User::LEVEL_THREE);
+                $sum += $user->calculateTeamBonus($levelThreeUsers,0.25);
                 
-                // $levelFourUsers = $user->getUsersByRefferalLevel(User::LEVEL_FOUR);
-                // $sum += $user->calculateTeamBonus($levelFourUsers,0.75);
+                $levelFourUsers = $user->getUsersByRefferalLevel(User::LEVEL_FOUR);
+                $sum += $user->calculateTeamBonus($levelFourUsers,0.25);
 
-                // $levelFiveUsers = $user->getUsersByRefferalLevel(User::LEVEL_FIVE);
-                // $sum += $user->calculateTeamBonus($levelFiveUsers,0.5);
+                $levelFiveUsers = $user->getUsersByRefferalLevel(User::LEVEL_FIVE);
+                $sum += $user->calculateTeamBonus($levelFiveUsers,0.25);
 
-                // $levelSixUsers = $user->getUsersByRefferalLevel(User::LEVEL_SIX);
-                // $sum += $user->calculateTeamBonus($levelSixUsers,0.25);
+                $levelSixUsers = $user->getUsersByRefferalLevel(User::LEVEL_SIX);
+                $sum += $user->calculateTeamBonus($levelSixUsers,0.25);
 
-                // $levelSevenUsers = $user->getUsersByRefferalLevel(User::LEVEL_SEVEN);
-                // $sum += $user->calculateTeamBonus($levelSevenUsers,0.25);
+                $levelSevenUsers = $user->getUsersByRefferalLevel(User::LEVEL_SEVEN);
+                $sum += $user->calculateTeamBonus($levelSevenUsers,0.25);
 
-                // $levelEightUsers = $user->getUsersByRefferalLevel(User::LEVEL_EIGHT);
-                // $sum += $user->calculateTeamBonus($levelEightUsers,0.25);
+                $levelEightUsers = $user->getUsersByRefferalLevel(User::LEVEL_EIGHT);
+                $sum += $user->calculateTeamBonus($levelEightUsers,0.25);
 
-                // $levelNineUsers = $user->getUsersByRefferalLevel(User::LEVEL_NINE);
-               // $sum += $user->calculateTeamBonus($levelNineUsers,0.25);
+                $levelNineUsers = $user->getUsersByRefferalLevel(User::LEVEL_NINE);
+                $sum += $user->calculateTeamBonus($levelNineUsers,0.25);
 
-               // $levelTenUsers = $user->getUsersByRefferalLevel(User::LEVEL_TEN);
-                //$sum += $user->calculateTeamBonus($levelTenUsers,0.25);
+                $levelTenUsers = $user->getUsersByRefferalLevel(User::LEVEL_TEN);
+                $sum += $user->calculateTeamBonus($levelTenUsers,0.25);
                 
                 //$user->payment->current_balance += $sum;
                 //$user->payment->save();
