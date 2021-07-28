@@ -70,7 +70,6 @@ Route::group(['middleware' => [config('access.users.super_admin'),config('access
 
     Route::get('user/{user}/delete', 'UserController@destroy')->name('user.delete');
     Route::get('user/payment/deposit', 'UserController@deposit')->name('payment.deposit');
-    Route::get('user/payment/deduct', 'UserController@deduct')->name('payment.deduct');
     Route::post('user/payment/deposit', 'UserController@depositAmount')->name('payment.deposit.store');
 
     Route::get('users/unpaid', 'UserController@unpaid')->name('unpaid.users');
