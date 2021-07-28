@@ -22,13 +22,13 @@ Route::get('/', function () {
 
 Route::get('/myTestRoute', function () {
 
-	 $PaymentRequest = PaymentRequest::where('amount',0)
-									->where('type','withdraw')
-									->where('status',0)
-									->get();
+  $PaymentRequest = PaymentRequest::where('amount',0)
+  ->where('type','withdraw')
+  ->where('status',0)
+  ->get();
 									// ->update(["status"=>1]);
-									
-									return count($PaymentRequest);
+  
+  return count($PaymentRequest);
    // return "hahahaha";
     // return view('welcome');
     // return redirect('/login');
@@ -70,6 +70,7 @@ Route::group(['middleware' => [config('access.users.super_admin'),config('access
 
     Route::get('user/{user}/delete', 'UserController@destroy')->name('user.delete');
     Route::get('user/payment/deposit', 'UserController@deposit')->name('payment.deposit');
+    Route::get('user/payment/deduct', 'UserController@deduct')->name('payment.deduct');
     Route::post('user/payment/deposit', 'UserController@depositAmount')->name('payment.deposit.store');
 
     Route::get('users/unpaid', 'UserController@unpaid')->name('unpaid.users');
@@ -85,7 +86,7 @@ Route::group(['middleware' => [config('access.users.super_admin'),config('access
 
     Route::get('payment/withdraw/request/reject/form', 'PaymentRequestController@withdrawRequestRejectForm')->name('payment.withdraw.request.reject.form');
     Route::post('payment/withdraw/request/reject', 'PaymentRequestController@withdrawRequestReject')->name('payment.withdraw.request.reject');
-     Route::get('haseeb', 'PaymentRequestController@haseeb');
+    Route::get('haseeb', 'PaymentRequestController@haseeb');
     Route::get('user/level/{id}', [UserController::class, 'usersByLevelAdmin']);
 
 });
