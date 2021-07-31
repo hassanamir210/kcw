@@ -63,7 +63,7 @@ class UserController extends Controller
     public function create(ManageUserRequest $request)
     {
         return view('admin.user.create')
-            ->withRoles($this->role->all());
+        ->withRoles($this->role->all());
     }
 
     /**
@@ -86,13 +86,13 @@ class UserController extends Controller
      *
      * @return mixed
      */ 
-    public function show(User $user)
-    {
+     public function show(User $user)
+     {
         $paymentRequests = PaymentRequest::where('user_id',$user->id)
-                                        ->orderBy('date','desc')
-                                        ->get();
+        ->orderBy('date','desc')
+        ->get();
         return view('admin.user.show',compact('paymentRequests'))
-            ->withUser($user);
+        ->withUser($user);
     }
 
     /**
@@ -144,7 +144,7 @@ class UserController extends Controller
     public function unpaid(ManageUserRequest $request) {
 
         return view('admin.user.unpaid')
-            ->withUsers(User::getUsersByRole(config('access.users.customer_role')));
+        ->withUsers(User::getUsersByRole(config('access.users.customer_role')));
     }
 
         /**
@@ -152,28 +152,28 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function usersByLevel($level) {        
-        if ($level>User::LEVEL_TEN || $level<User::LEVEL_ONE) {
-            return redirect()->route('user.home')->withFlashDanger(__('Invalid level, please select valid level.'));
+        public function usersByLevel($level) {        
+            if ($level>User::LEVEL_TEN || $level<User::LEVEL_ONE) {
+                return redirect()->route('user.home')->withFlashDanger(__('Invalid level, please select valid level.'));
+            }
+
+            return view('auth.users-by-level')->withUsers(Auth::user()->getUsersByRefferalLevel($level))->withLevel($level);
         }
 
-        return view('auth.users-by-level')->withUsers(Auth::user()->getUsersByRefferalLevel($level))->withLevel($level);
-    }
-
-    public function usersByLevelAdmin($user_id) {        
+        public function usersByLevelAdmin($user_id) {        
         // if ($level>User::LEVEL_TEN || $level<User::LEVEL_ONE) {
         //     return redirect()->route('user.home')->withFlashDanger(__('Invalid level, please select valid level.'));
         // }
-        $user = User::findorFail($user_id); 
-        return view('auth.users-by-level-admin',compact('user'));
+            $user = User::findorFail($user_id); 
+            return view('auth.users-by-level-admin',compact('user'));
         // ->withUsers(Auth::user()->getUsersByRefferalLevel($level))->withLevel($level);
-    }
+        }
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function deposit(Request $request) {
-        return view('admin.deposit')->withId($request->id);
+        return view('admin.deposit')->withId($request->id)->withType($request->type);
     }
 
      /**
@@ -183,25 +183,25 @@ class UserController extends Controller
      * @throws \App\Exceptions\GeneralException
      * @throws \Throwable
      */
-    public function depositAmount(DepositPaymentRequest $request) {
+     public function depositAmount(DepositPaymentRequest $request) {
 
         \DB::beginTransaction();
 
-            try {
+        try {
+            $type = decrypt($request->type);
+            $paymentRequest = PaymentRequest::create([
+                'user_id' => decrypt($request->id),
+                'amount' => $type == "add"? $request->deposit_amount: $request->deposit_amount*(-1),
+                'type' => PaymentRequest::DEPOSIT,
+                'status' => PaymentRequest::APPROVED,
+                'date' => date('Y-m-d'),
+            ]);
 
-                $paymentRequest = PaymentRequest::create([
-                    'user_id' => decrypt($request->id),
-                    'amount' => $request->deposit_amount,
-                    'type' => PaymentRequest::DEPOSIT,
-                    'status' => PaymentRequest::APPROVED,
-                    'date' => date('Y-m-d'),
-                ]);
-
-            } catch (Exception $e) {
-                \DB::rollBack();
-                throw new GeneralException(__('There was a problem while depositing this amount. Please try again.'));
-            }
-            \DB::commit();
+        } catch (Exception $e) {
+            \DB::rollBack();
+            throw new GeneralException(__('There was a problem while depositing this amount. Please try again.'));
+        }
+        \DB::commit();
 
         return redirect()->route('admin.user.index')->withFlashSuccess(__('The payment was deposited successfully.'));
     }
@@ -233,7 +233,7 @@ class UserController extends Controller
     /**
      * Send refferal invitation mail
      */
-     public function invite(Request $request) {
+    public function invite(Request $request) {
 
         event(new InviteRefferal($request->email));
         return redirect()->route('user.home')->withFlashSuccess(__('Refferal invitation sent successfully.'));
