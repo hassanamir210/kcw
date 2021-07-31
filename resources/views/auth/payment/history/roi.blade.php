@@ -13,6 +13,7 @@
             </div>
             <div class="float-right">
                 <small class="text-muted font-17">Total ROI: <b>${{ auth()->user()->getTotalRoi() }}</b></small><br>
+                 <small class="text-muted font-17">Total ROI PKR: <b>PKR {{ auth()->user()->getTotalRoi()*160 }}</b></small><br>
             </div>
         </div>
         <div class="kt-portlet__body">
@@ -22,6 +23,7 @@
                         <tr>
                             <th>@lang('Date')</th>
                             <th>@lang('Amount')</th>
+                             <th>@lang('Amount PKR')</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -29,6 +31,7 @@
                         <tr>
                             <td>{{ Carbon\Carbon::parse($request->created_at)->format('Y-m-d') }}</td>
                             <td><span class="badge badge-primary">${{ $request->amount }}</span></td>
+                            <td><span class="badge badge-primary">PKR {{ $request->amount*160 }}</span></td>
                         </tr>
                         @endforeach
                     </tbody>

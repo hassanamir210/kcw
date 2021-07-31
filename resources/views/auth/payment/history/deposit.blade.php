@@ -13,6 +13,7 @@
             </div>
             <div class="float-right">
                 <small class="text-muted font-17">Total Deposit: <b>${{ auth()->user()->totalDeposit() }}</b></small><br>
+                <small class="text-muted font-17">Total Deposit PKR: <b>PKR {{ auth()->user()->totalDeposit()*160 }}</b></small><br>
             </div>
         </div>
         <div class="kt-portlet__body">
@@ -22,6 +23,7 @@
                         <tr>
                             <th>@lang('Date')</th>
                             <th>@lang('Amount')</th>
+                              <th>@lang('Amount PKR')</th>
                             <th>@lang('Type')</th>
                         </tr>
                     </thead>
@@ -30,6 +32,7 @@
                         <tr>
                             <td>{{ $request->date }}</td>
                             <td><span class="badge badge-primary">${{ $request->amount }}</span></td>
+                            <td><span class="badge badge-primary">PKR {{ $request->amount*160 }}</span></td>
                             <td>
                                 @if($request->subType==1)
                                     <span class="badge badge-success">Reinvested</badge> 

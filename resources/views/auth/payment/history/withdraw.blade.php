@@ -13,6 +13,7 @@
             </div>
             <div class="float-right">
                 <small class="text-muted font-17">Total Withdraw: <b>${{ auth()->user()->totalWithdraw() }}</b></small><br>
+                 <small class="text-muted font-17">Total Withdraw PKR: <b>PKR {{ auth()->user()->totalWithdraw()*160 }}</b></small><br>
             </div>
         </div>
         <div class="kt-portlet__body">
@@ -22,6 +23,7 @@
                         <tr>
                             <th>@lang('Date')</th>
                             <th>@lang('Amount')</th>
+                            <th>@lang('Amount PKR')</th>
                             <th>@lang('Wallet ID')</th>
                             <th>@lang('Status')</th>
                         </tr>
@@ -31,7 +33,8 @@
                         <tr>
                             <td>{{ $request->date }}</td>
                             <td>${{ $request->amount }}</td>
-                            <td>123456</td>
+                             <td>PKR {{ $request->amount*160 }}</td>
+                            <td>*****</td>
                             <td>{!! $request->status_label !!}</td>
                         </tr>
                         @endforeach

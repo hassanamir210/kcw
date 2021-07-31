@@ -80,7 +80,7 @@
                 @endcan
                 @can('payment management')
                 <!--<li class="kt-menu__item" aria-haspopup="true"><a href="{{ route('user.payment.deposit') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text font-17">Deposit</span><span class="kt-menu__link-badge"></a></li>-->
-                <li class="kt-menu__item" aria-haspopup="true"><a href="{{ route('user.payment.withdraw') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text font-17">Withdraw</span><span class="kt-menu__link-badge"></a></li>
+                <!--<li class="kt-menu__item" aria-haspopup="true"><a href="{{ route('user.payment.withdraw') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text font-17">Withdraw</span><span class="kt-menu__link-badge"></a></li>-->
                 <li class="kt-menu__item" aria-haspopup="true"><a href="{{ route('user.target') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text font-17">Target</span><span class="kt-menu__link-badge"></a></li>
                 <li class="kt-menu__item" aria-haspopup="true"><a href="{{ route('user.invite.refferal.index') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text font-17">Invite User</span><span class="kt-menu__link-badge"></a></li>
                 @if (auth()->user()->id == 2)
@@ -97,12 +97,12 @@
                         <ul class="kt-menu__subnav">
                             <li class="kt-menu__item" aria-haspopup="true"><a href="{{ route('user.payment.deposit.history') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text font-17">Deposit History</span><span class="kt-menu__link-badge"></a></li>
                             <li class="kt-menu__item" aria-haspopup="true"><a href="{{ route('user.payment.roi.history') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text font-17">Roi History</span><span class="kt-menu__link-badge"></a></li>
-                            <li class="kt-menu__item" aria-haspopup="true"><a href="{{ route('user.payment.team.bonus.history') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text font-17">Team Bonus History</span><span class="kt-menu__link-badge"></a></li>
+                            <!--<li class="kt-menu__item" aria-haspopup="true"><a href="{{ route('user.payment.team.bonus.history') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text font-17">Team Bonus History</span><span class="kt-menu__link-badge"></a></li>-->
                             <li class="kt-menu__item" aria-haspopup="true"><a href="{{ route('user.payment.withdraw.history') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text font-17">Withdraw History</span><span class="kt-menu__link-badge"></a></li>
                         </ul>
                     </div>
                 </li>
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                <li class="kt-menu__item  kt-menu__item--submenu" style="display:none" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                         <rect x="0" y="0" width="24" height="24" />
                         <rect fill="#000000" x="4" y="4" width="7" height="7" rx="1.5" />
